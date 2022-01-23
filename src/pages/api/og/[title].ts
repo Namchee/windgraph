@@ -1,7 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import type { OpenGraphContent } from '@/lib/types';
 import { generateContent } from '@/lib/template';
 import { captureScreen } from '@/lib/puppeteer';
+
+import type { NextApiRequest, NextApiResponse } from 'next';
+import type { OpenGraphContent } from '@/lib/types';
 
 /**
  * Sample route handler
@@ -41,6 +42,11 @@ async function og(
   res.setHeader('X-Powered-By', 'Namchee');
   res.setHeader('Content-Type', 'image/png');
   res.setHeader('Content-Length', img.byteLength);
+  // Cache for one month
+  res.setHeader(
+    'Cache-Control',
+    'public, stale-while-revalidate=2629746, max-age=2629746'
+  );
 
   return res.status(200).end(img);
 }
