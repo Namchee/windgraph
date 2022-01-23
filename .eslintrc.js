@@ -1,5 +1,5 @@
 module.exports = {
-  plugins: ['@typescript-eslint', 'jsdoc'],
+  plugins: ['@typescript-eslint', 'jsdoc', 'prettier'],
   parser: '@typescript-eslint/parser',
   extends: [
     'eslint:recommended',
@@ -8,6 +8,7 @@ module.exports = {
     'next',
     'next/core-web-vitals',
     'xo',
+    'prettier',
   ],
   rules: {
     'linebreak-style': ['error', 'windows'],
@@ -17,5 +18,6 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'error',
     'require-jsdoc': 'off',
     'new-cap': 'off',
+    'prettier/prettier': ['error'],
   },
 };
