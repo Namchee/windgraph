@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 
 import { sanitize } from '@/lib/sanitizer';
 
-describe('Sanitizer', () => {
+describe('sanitize', () => {
   it.concurrent('should sanitize escapable inputs', () => {
     const input = '<script>alert("XSS");</script>';
     const output = sanitize(input);

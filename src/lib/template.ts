@@ -3,6 +3,7 @@ import { parse } from 'markdown-wasm';
 import { sanitize } from '@/lib/sanitizer';
 
 import type { OpenGraphContent } from '@/lib/types';
+import { injectContainerClass } from './style';
 
 /**
  * Generate content based on provided user input
@@ -16,8 +17,7 @@ export function generateContent(content: OpenGraphContent): string {
     ? `<link href="https://fonts.googleapis.com/css2?family=${content.fontFamily}:wght@400;700&display=swap" rel="stylesheet">`
     : '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">';
 
-  let containerClass =
-    content.containerClass || 'w-screen h-screen grid place-items-center p-12';
+  let containerClass = injectContainerClass(content.containerClass || '');
   const titleClass =
     content.titleClass || 'text-6xl leading-relaxed tracking-tight';
   const subtitleClass = content.subtitleClass || 'mt-4 text-2xl';
