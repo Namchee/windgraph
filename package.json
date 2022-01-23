@@ -8,7 +8,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "markdown-wasm": "^1.2.0",
     "next": "12.0.8",
+    "puppeteer": "^13.1.1",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
@@ -23,6 +25,7 @@
     "eslint-config-xo": "^0.39.0",
     "eslint-plugin-jsdoc": "^37.6.3",
     "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1",
     "typescript": "^4.5.5"
   }
 }
