@@ -1,6 +1,8 @@
 import { parse } from 'markdown-wasm';
 
-import { OpenGraphContent } from '@/lib/types';
+import { sanitize } from '@/lib/sanitizer';
+
+import type { OpenGraphContent } from '@/lib/types';
 
 /**
  * Generate content based on provided user input
@@ -20,11 +22,14 @@ export function generateContent(content: OpenGraphContent): string {
     content.titleClass || 'text-6xl leading-relaxed tracking-tight';
   const subtitleClass = content.subtitleClass || 'mt-4 text-2xl';
 
-  const title = content.title
-    ? `<h1 class="${titleClass}">${parse(content.title)}</h1>`
+  const titleContent = content.title ? sanitize(content.title) : '';
+  const subtitleContent = content.subtitle ? sanitize(content.subtitle) : '';
+
+  const title = titleContent
+    ? `<h1 class="${titleClass}">${parse(titleContent)}</h1>`
     : '';
-  const subtitle = content.subtitle
-    ? `<h3 class=${subtitleClass}>${parse(content.subtitle)}</h3>`
+  const subtitle = subtitleContent
+    ? `<h3 class=${subtitleClass}>${parse(subtitleClass)}</h3>`
     : '';
 
   if (!containerClass.includes('w-screen h-screen')) {

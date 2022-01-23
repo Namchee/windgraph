@@ -13,6 +13,7 @@ let page: Page;
  * @returns {Promise<Page>} Puppeteer webpage
  */
 async function getPage(): Promise<Page> {
+  // Re-use the page if exists
   if (page) {
     return page;
   }
