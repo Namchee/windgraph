@@ -92,4 +92,40 @@ describe('injectClass', () => {
       expect(classes).not.toContain('tracking-tight');
     });
   });
+
+  describe('injectSubtitleClass', () => {
+    it('should inject some fallback classes', () => {
+      const input = 'text-3xl';
+      const output = injectClass(input, 'subtitle');
+
+      const classes = output.split(' ');
+
+      expect(classes).toContain('text-center');
+      expect(classes).toContain('text-3xl');
+      expect(classes).not.toContain('text-2xl');
+    });
+
+    it('should inject all fallback classes', () => {
+      const input = '';
+      const output = injectClass(input, 'subtitle');
+
+      const classes = output.split(' ');
+      expect(classes).toContain('text-center');
+      expect(classes).toContain('text-2xl');
+    });
+
+    it('should not inject any classes', () => {
+      const input = 'text-xl text-right text-gray-400';
+      const output = injectClass(input, 'subtitle');
+
+      const classes = output.split(' ');
+
+      expect(classes).toContain('text-right');
+      expect(classes).toContain('text-gray-400');
+      expect(classes).toContain('text-xl');
+
+      expect(classes).not.toContain('text-2xl');
+      expect(classes).not.toContain('text-center');
+    });
+  });
 });

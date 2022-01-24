@@ -3,7 +3,7 @@ interface UtilMap {
   default: string;
 }
 
-type OpenGraphElement = 'container' | 'title';
+type OpenGraphElement = 'container' | 'title' | 'subtitle';
 
 const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
   container: [
@@ -50,6 +50,16 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
     {
       target: [/\btext-(?!(left|center|right|justify))\b/],
       default: 'text-7xl',
+    },
+  ],
+  subtitle: [
+    {
+      target: [/\btext-(left|center|right|justify)\b/],
+      default: 'text-center',
+    },
+    {
+      target: [/\btext-(?!(left|center|right|justify))\b/],
+      default: 'text-2xl',
     },
   ],
 };
