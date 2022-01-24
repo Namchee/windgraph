@@ -1,9 +1,9 @@
 import { parse } from 'markdown-wasm';
 
+import { injectClass } from '@/lib/injector';
 import { sanitize } from '@/lib/sanitizer';
 
 import type { OpenGraphContent } from '@/lib/types';
-import { injectContainerClass } from './style';
 
 /**
  * Generate content based on provided user input
@@ -12,14 +12,12 @@ import { injectContainerClass } from './style';
  * @returns {string} HTML string
  */
 export function generateContent(content: OpenGraphContent): string {
-  const img = content.image ? `<img src=${content.image} />` : '';
   const font = content.fontFamily
     ? `<link href="https://fonts.googleapis.com/css2?family=${content.fontFamily}:wght@400;700&display=swap" rel="stylesheet">`
     : '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">';
 
-  let containerClass = injectContainerClass(content.containerClass || '');
-  const titleClass =
-    content.titleClass || 'text-6xl leading-relaxed tracking-tight';
+  const containerClass = injectClass(content.containerClass || '', 'container');
+  const titleClass = injectClass(content.titleClass || '', 'title');
   const subtitleClass = content.subtitleClass || 'mt-4 text-2xl';
 
   const titleContent = content.title ? sanitize(content.title) : '';
@@ -31,10 +29,7 @@ export function generateContent(content: OpenGraphContent): string {
   const subtitle = subtitleContent
     ? `<h3 class=${subtitleClass}>${parse(subtitleClass)}</h3>`
     : '';
-
-  if (!containerClass.includes('w-screen h-screen')) {
-    containerClass = `${containerClass} w-screen h-screen`;
-  }
+  const img = content.image ? `<img src=${content.image} />` : '';
 
   return `<!DOCTYPE html>
   <html>
