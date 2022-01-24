@@ -128,4 +128,40 @@ describe('injectClass', () => {
       expect(classes).not.toContain('text-center');
     });
   });
+
+  describe('injectImageClass', () => {
+    it('should inject some fallback classes', () => {
+      const input = 'w-xl';
+      const output = injectClass(input, 'image');
+
+      const classes = output.split(' ');
+
+      expect(classes).toContain('max-w-sm');
+      expect(classes).toContain('w-xl');
+      expect(classes).not.toContain('w-full');
+      expect(classes).toContain('h-auto');
+    });
+
+    it('should inject all fallback classes', () => {
+      const input = '';
+      const output = injectClass(input, 'image');
+
+      const classes = output.split(' ');
+
+      expect(classes).toContain('max-w-sm');
+      expect(classes).toContain('w-full');
+      expect(classes).toContain('h-auto');
+    });
+
+    it('should not do anything', () => {
+      const input = 'max-w-lg w-56 h-24';
+      const output = injectClass(input, 'image');
+
+      const classes = output.split(' ');
+
+      expect(classes).toContain('max-w-lg');
+      expect(classes).toContain('w-56');
+      expect(classes).toContain('h-24');
+    });
+  });
 });

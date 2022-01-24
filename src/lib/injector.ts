@@ -3,20 +3,20 @@ interface UtilMap {
   default: string;
 }
 
-type OpenGraphElement = 'container' | 'title' | 'subtitle';
+type OpenGraphElement = 'container' | 'title' | 'subtitle' | 'image';
 
 const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
   container: [
     {
-      target: [/\bw-\b/],
+      target: [/\bw-.+\b/],
       default: 'w-screen',
     },
     {
-      target: [/\bh-\b/],
+      target: [/\bh-.+\b/],
       default: 'h-screen',
     },
     {
-      target: [/\bp-\b/],
+      target: [/\bp-.+\b/],
       default: 'p-16',
     },
     {
@@ -40,11 +40,11 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
       default: 'text-center',
     },
     {
-      target: [/\bleading-\b/],
+      target: [/\bleading-.+\b/],
       default: 'leading-relaxed',
     },
     {
-      target: [/\btracking-\b/],
+      target: [/\btracking-.+\b/],
       default: 'tracking-tight',
     },
     {
@@ -60,6 +60,20 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
     {
       target: [/\btext-(?!(left|center|right|justify))\b/],
       default: 'text-2xl',
+    },
+  ],
+  image: [
+    {
+      target: [/\bmax-w-.+\b/],
+      default: 'max-w-sm',
+    },
+    {
+      target: [/\bw-.+\b/],
+      default: 'w-full',
+    },
+    {
+      target: [/\bh-.+\b/],
+      default: 'h-auto',
     },
   ],
 };
@@ -82,5 +96,5 @@ export function injectClass(style: string, el: OpenGraphElement): string {
     }
   }
 
-  return injected;
+  return injected.trim();
 }

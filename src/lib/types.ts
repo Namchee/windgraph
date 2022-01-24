@@ -15,4 +15,5 @@ export interface OpenGraphContent {
   fontFamily?: string;
   titleClass?: string;
   subtitleClass?: string;
+  imageClass?: string;
 }

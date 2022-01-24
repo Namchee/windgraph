@@ -18,7 +18,8 @@ export function generateContent(content: OpenGraphContent): string {
 
   const containerClass = injectClass(content.containerClass || '', 'container');
   const titleClass = injectClass(content.titleClass || '', 'title');
-  const subtitleClass = content.subtitleClass || 'mt-4 text-2xl';
+  const subtitleClass = injectClass(content.subtitleClass || '', 'subtitle');
+  const imageClass = injectClass(content.imageClass || '', 'image');
 
   const titleContent = content.title ? sanitize(content.title) : '';
   const subtitleContent = content.subtitle ? sanitize(content.subtitle) : '';
@@ -27,9 +28,11 @@ export function generateContent(content: OpenGraphContent): string {
     ? `<h1 class="${titleClass}">${parse(titleContent)}</h1>`
     : '';
   const subtitle = subtitleContent
-    ? `<h3 class=${subtitleClass}>${parse(subtitleClass)}</h3>`
+    ? `<h3 class="${subtitleClass}">${parse(subtitleContent)}</h3>`
     : '';
-  const img = content.image ? `<img src=${content.image} />` : '';
+  const img = content.image
+    ? `<img src="${content.image}" class="${imageClass}" />`
+    : '';
 
   return `<!DOCTYPE html>
   <html>
