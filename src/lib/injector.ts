@@ -59,7 +59,7 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
     },
     {
       target: [/\btext-(?!(left|center|right|justify))\b/],
-      default: 'text-2xl',
+      default: 'text-3xl',
     },
   ],
   image: [

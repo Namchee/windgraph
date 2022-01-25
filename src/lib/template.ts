@@ -64,8 +64,10 @@ export function generateContent(content: OpenGraphContent): string {
     <body>
       <div class="${containerClass}">
         ${img}
-        ${title}
-        ${subtitle}
+        <div>
+          ${title}
+          ${subtitle}
+        </div>
       </div>
     </body>
   </html>`;
