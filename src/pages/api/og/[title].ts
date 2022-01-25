@@ -22,7 +22,7 @@ async function og(
     title: query.title as string,
     subtitle: query.subtitle as string,
     titleClass: query['title-class'] as string,
-    image: query.img as string,
+    image: query.image as string,
     containerClass: query['container-class'] as string,
     fontFamily: query.font as string,
     subtitleClass: query['subtitle-class'] as string,
