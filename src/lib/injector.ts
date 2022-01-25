@@ -31,7 +31,7 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
         /\bgrid\b/,
         /\binline-grid\b/,
       ],
-      default: 'grid place-items-center',
+      default: 'flex flex-col justify-center items-center',
     },
   ],
   title: [
@@ -69,7 +69,7 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
   image: [
     {
       target: [/\bmax-w-.+\b/],
-      default: 'max-w-sm',
+      default: 'max-w-[40vh]',
     },
     {
       target: [/\bw-.+\b/],

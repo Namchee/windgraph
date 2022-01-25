@@ -13,8 +13,10 @@ describe('injectClass', () => {
       expect(classes).toContain('h-screen');
       expect(classes).not.toContain('p-16');
       expect(classes).toContain('p-24');
-      expect(classes).toContain('grid');
-      expect(classes).toContain('place-items-center');
+      expect(classes).toContain('flex');
+      expect(classes).toContain('flex-col');
+      expect(classes).toContain('justify-center');
+      expect(classes).toContain('items-center');
     });
 
     it('should inject all fallback classes', () => {
@@ -25,8 +27,10 @@ describe('injectClass', () => {
       expect(classes).toContain('w-screen');
       expect(classes).toContain('h-screen');
       expect(classes).toContain('p-16');
-      expect(classes).toContain('grid');
-      expect(classes).toContain('place-items-center');
+      expect(classes).toContain('flex');
+      expect(classes).toContain('flex-col');
+      expect(classes).toContain('justify-center');
+      expect(classes).toContain('items-center');
     });
 
     it('should not inject any classes', () => {
@@ -44,8 +48,7 @@ describe('injectClass', () => {
       expect(classes).not.toContain('w-screen');
       expect(classes).not.toContain('h-screen');
       expect(classes).not.toContain('p-16');
-      expect(classes).not.toContain('grid');
-      expect(classes).not.toContain('place-items-center');
+      expect(classes).not.toContain('flex-col');
     });
   });
 
@@ -136,7 +139,7 @@ describe('injectClass', () => {
 
       const classes = output.split(' ');
 
-      expect(classes).toContain('max-w-sm');
+      expect(classes).toContain('max-w-[40vh]');
       expect(classes).toContain('w-xl');
       expect(classes).not.toContain('w-full');
       expect(classes).toContain('h-auto');
@@ -148,7 +151,7 @@ describe('injectClass', () => {
 
       const classes = output.split(' ');
 
-      expect(classes).toContain('max-w-sm');
+      expect(classes).toContain('max-w-[40vh]');
       expect(classes).toContain('w-full');
       expect(classes).toContain('h-auto');
     });

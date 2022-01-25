@@ -19,7 +19,7 @@ async function getPage(): Promise<Page> {
   }
 
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
   });
   const pages = await browser.pages();
 
