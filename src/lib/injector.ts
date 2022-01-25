@@ -44,10 +44,6 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
       default: 'leading-relaxed',
     },
     {
-      target: [/\btracking-.+\b/],
-      default: 'tracking-tight',
-    },
-    {
       target: [
         /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|px|rem|em|ch|vh|vw|ex)\b/,
       ],
