@@ -111,7 +111,7 @@ describe('injectClass', () => {
 
       const classes = output.split(' ');
       expect(classes).toContain('text-center');
-      expect(classes).toContain('text-2xl');
+      expect(classes).toContain('text-3xl');
     });
 
     it('should not inject any classes', () => {

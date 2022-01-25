@@ -48,7 +48,9 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
       default: 'tracking-tight',
     },
     {
-      target: [/\btext-(?!(left|center|right|justify))\b/],
+      target: [
+        /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|px|rem|em|ch|vh|vw|ex)\b/,
+      ],
       default: 'text-7xl',
     },
   ],
@@ -58,7 +60,9 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
       default: 'text-center',
     },
     {
-      target: [/\btext-(?!(left|center|right|justify))\b/],
+      target: [
+        /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|px|rem|em|ch|vh|vw|ex)\b/,
+      ],
       default: 'text-3xl',
     },
   ],
