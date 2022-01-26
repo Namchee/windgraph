@@ -19,5 +19,6 @@ module.exports = {
     'require-jsdoc': 'off',
     'new-cap': 'off',
     'prettier/prettier': ['error'],
+    // 'comma-dangle': ['error', 'always-multiline'],
   },
 };
