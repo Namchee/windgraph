@@ -1,51 +1,68 @@
-import { describe, expect, it } from 'vitest';
+import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { generateContent } from '@/lib/template';
 
 import type { OpenGraphContent } from '@/lib/types';
+import { imgMockServer } from '@/mocks/server';
 
 // Class injection are tested separately
 describe('generateContent', () => {
-  it('should generate normal template', () => {
+  beforeAll(() => {
+    global.fetch = fetch;
+    imgMockServer.listen();
+  });
+
+  afterEach(() => {
+    imgMockServer.resetHandlers();
+  });
+
+  afterAll(() => {
+    imgMockServer.close();
+  });
+
+  it.concurrent('should generate normal template', async () => {
     const content: OpenGraphContent = {
       title: 'Foo bar',
     };
-    const template = generateContent(content);
+    const template = await generateContent(content);
 
     expect(template).toMatch(/h1/);
     expect(template).not.toMatch(/h3/);
     expect(template).not.toMatch(/img/);
   });
 
-  it('should generate template with subtitles', () => {
+  it.concurrent('should generate template with subtitles', async () => {
     const content: OpenGraphContent = {
       title: 'Foo bar',
       subtitle: 'bar baz',
     };
-    const template = generateContent(content);
+    const template = await generateContent(content);
 
     expect(template).toMatch(/h1/);
     expect(template).toMatch(/h3/);
     expect(template).not.toMatch(/img/);
   });
 
-  it('should generate template with subtitles and images', () => {
-    const content: OpenGraphContent = {
-      title: 'Foo bar',
-      subtitle: 'bar baz',
-      image: 'skypack',
-    };
-    const template = generateContent(content);
+  it.concurrent(
+    'should generate template with subtitles and images',
+    async () => {
+      const content: OpenGraphContent = {
+        title: 'Foo bar',
+        subtitle: 'bar baz',
+        image: 'https://foo.bar/test.png',
+      };
+      const template = await generateContent(content);
 
-    expect(template).toMatch(/h1/);
-    expect(template).toMatch(/h3/);
-    expect(template).toMatch(/img/);
-  });
+      expect(template).toMatch(/h1/);
+      expect(template).toMatch(/h3/);
+      expect(template).toMatch(/img/);
+    }
+  );
 
-  it('should recognize custom fonts request', () => {
+  it.concurrent('should recognize custom fonts request', async () => {
     const content: OpenGraphContent = {
       fontFamily: 'Open Sans',
     };
-    const template = generateContent(content);
+    const template = await generateContent(content);
 
     expect(template).toMatch(
       '<link href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400;700&display=swap" rel="stylesheet">'

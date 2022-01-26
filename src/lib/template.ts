@@ -2,6 +2,7 @@ import { parse } from 'markdown-wasm';
 
 import { injectClass } from '@/lib/injector';
 import { sanitize } from '@/lib/sanitizer';
+import { isValidImage } from '@/lib/utils';
 
 import type { OpenGraphContent } from '@/lib/types';
 
@@ -11,7 +12,9 @@ import type { OpenGraphContent } from '@/lib/types';
  * @param {OpenGraphContent} content user-provided open graph input
  * @returns {string} HTML string
  */
-export function generateContent(content: OpenGraphContent): string {
+export async function generateContent(
+  content: OpenGraphContent
+): Promise<string> {
   const font = content.fontFamily
     ? `<link href="https://fonts.googleapis.com/css2?family=${content.fontFamily}:wght@400;700&display=swap" rel="stylesheet">`
     : '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">';
@@ -24,14 +27,24 @@ export function generateContent(content: OpenGraphContent): string {
   const titleContent = content.title ? sanitize(content.title) : '';
   const subtitleContent = content.subtitle ? sanitize(content.subtitle) : '';
 
+  let contentImage = '';
+
+  if (content.image) {
+    const isValid = await isValidImage(content.image);
+
+    if (isValid) {
+      contentImage = content.image;
+    }
+  }
+
   const title = titleContent
     ? `<h1 class="${titleClass}">${parse(titleContent)}</h1>`
     : '';
   const subtitle = subtitleContent
     ? `<h3 class="${subtitleClass}">${parse(subtitleContent)}</h3>`
     : '';
-  const img = content.image
-    ? `<img src="${content.image}" class="${imageClass}" />`
+  const img = contentImage
+    ? `<img src="${contentImage}" class="${imageClass}" />`
     : '';
 
   return `<!DOCTYPE html>

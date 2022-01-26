@@ -32,7 +32,7 @@ async function og(
   const width = query.width as string;
   const height = query.height as string;
 
-  const html = generateContent(content);
+  const html = await generateContent(content);
   const img = await captureScreen(html, {
     dimension: {
       width: Number.parseInt(width as string, 10),
