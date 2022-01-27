@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import chromium from 'chrome-aws-lambda';
 
 import { HEIGHT, WIDTH } from '@/constant/api';
 
@@ -19,7 +20,11 @@ async function getPage(): Promise<Page> {
   }
 
   const browser = await puppeteer.launch({
-    headless: true,
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless,
+    ignoreHTTPSErrors: true,
   });
   const pages = await browser.pages();
 
