@@ -46,7 +46,7 @@ async function og(
   // Cache for one month
   res.setHeader(
     'Cache-Control',
-    'public, stale-while-revalidate=2629746, max-age=2629746'
+    'public, stale-while-revalidate=600, max-age=2629146'
   );
 
   return res.status(200).end(img);
