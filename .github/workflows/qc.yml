@@ -1,0 +1,36 @@
+name: Lint and test files on every pull and root branch push 
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    name: Lint and test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14]
+    steps:
+      - name: Checkout from repository
+        uses: actions/checkout@v2.3.3
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.20.3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Lint code
+        run: pnpm run lint
+      - name: Test code
+        run: pnpm run test
+      - name: Build the code
+        run: yarn build

@@ -10,6 +10,13 @@ module.exports = {
     'xo',
     'prettier',
   ],
+  parserOptions: {
+    ecmaVersion: 6,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
   rules: {
     'linebreak-style': ['error', 'windows'],
     'object-curly-spacing': ['error', 'always'],
@@ -19,6 +26,8 @@ module.exports = {
     'require-jsdoc': 'off',
     'new-cap': 'off',
     'prettier/prettier': ['error'],
+    'no-undef': 'off',
+    'jsdoc/no-undefined-types': 'off',
     // 'comma-dangle': ['error', 'always-multiline'],
   },
 };
