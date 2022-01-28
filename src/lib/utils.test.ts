@@ -3,7 +3,7 @@ import fetch from 'isomorphic-unfetch';
 import { describe, it, beforeAll, afterEach, afterAll, expect } from 'vitest';
 
 import { imgMockServer } from '@/mocks/server';
-import { isValidImage } from './utils';
+import { isValidImage } from '@/lib/utils';
 
 describe('isValidImage', () => {
   beforeAll(() => {

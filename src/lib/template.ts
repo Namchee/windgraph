@@ -2,7 +2,7 @@ import { parse } from 'markdown-wasm';
 
 import { injectClass } from '@/lib/injector';
 import { sanitize } from '@/lib/sanitizer';
-import { isValidImage } from '@/lib/utils';
+import { getFontLinks, isValidImage } from '@/lib/utils';
 
 import type { OpenGraphContent } from '@/lib/types';
 
@@ -15,9 +15,10 @@ import type { OpenGraphContent } from '@/lib/types';
 export async function generateContent(
   content: OpenGraphContent
 ): Promise<string> {
+  const fonts = getFontLinks(content);
   const font = content.fontFamily
     ? `<link href="https://fonts.googleapis.com/css2?family=${content.fontFamily}:wght@400;700&display=swap" rel="stylesheet">`
-    : '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">';
+    : '';
 
   const containerClass = injectClass(content.containerClass || '', 'container');
   const titleClass = injectClass(content.titleClass || '', 'title');
@@ -55,6 +56,7 @@ export async function generateContent(
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       ${font}
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
       <script src="https://cdn.tailwindcss.com"></script>
       <script>
         tailwind.config = {

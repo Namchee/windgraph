@@ -12,8 +12,10 @@ export interface OpenGraphContent {
   subtitle?: string;
   image?: string;
   containerClass?: string;
-  fontFamily?: string;
   titleClass?: string;
   subtitleClass?: string;
   imageClass?: string;
+  fontSans?: string;
+  fontSerif?: string;
+  fontMono?: string;
 }

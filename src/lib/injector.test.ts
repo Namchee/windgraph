@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 
-import { injectClass } from '@/lib/injector';
+import { injectClass, injectFonts } from '@/lib/injector';
+
+import type { OpenGraphContent } from '@/lib/types';
 
 describe('injectClass', () => {
   describe('injectContainerClass', () => {
@@ -163,5 +165,32 @@ describe('injectClass', () => {
       expect(classes).toContain('w-56');
       expect(classes).toContain('h-24');
     });
+  });
+});
+
+describe('injectFonts', () => {
+  it('should generate sans and mono variants', () => {
+    const content: OpenGraphContent = {
+      fontSans: 'Inter',
+      fontMono: 'Hack',
+    };
+
+    const links = injectFonts(content);
+
+    expect(links.length).toBe(2);
+    expect(links).toContain(
+      `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">`
+    );
+    expect(links).toContain(
+      `<link href="https://fonts.googleapis.com/css2?family=Hack:wght@400;700&display=swap" rel="stylesheet">`
+    );
+  });
+
+  it('should return empty array', () => {
+    const content: OpenGraphContent = {};
+
+    const links = injectFonts(content);
+
+    expect(links.length).toBe(0);
   });
 });

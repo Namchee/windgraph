@@ -24,9 +24,11 @@ async function og(
     titleClass: query['title-class'] as string,
     image: query.image as string,
     containerClass: query['container-class'] as string,
-    fontFamily: query.font as string,
     subtitleClass: query['subtitle-class'] as string,
     imageClass: query['image-class'] as string,
+    fontSans: query['font-sans'] as string,
+    fontSerif: query['font-serif'] as string,
+    fontMono: query['font-mono'] as string,
   };
 
   const width = query.width as string;

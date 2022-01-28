@@ -1,3 +1,5 @@
+import type { OpenGraphContent } from '@/lib/types';
+
 interface UtilMap {
   target: RegExp[];
   default: string;
@@ -97,4 +99,19 @@ export function injectClass(style: string, el: OpenGraphElement): string {
   }
 
   return injected.trim();
+}
+
+/**
+ * Dynamically generated Google Fonts links based on user input
+ *
+ * @param {OpenGraphContent} content user input
+ * @returns {string[]} list of font links
+ */
+export function injectFonts(content: OpenGraphContent): string[] {
+  return Object.keys(content)
+    .filter(key => key.startsWith('font'))
+    .map(
+      font =>
+        `<link href="https://fonts.googleapis.com/css2?family=${font}:wght@400;700&display=swap" rel="stylesheet">`
+    );
 }
