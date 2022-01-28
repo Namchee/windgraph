@@ -60,7 +60,8 @@ describe('generateContent', () => {
 
   it.concurrent('should recognize custom fonts request', async () => {
     const content: OpenGraphContent = {
-      fontFamily: 'Open Sans',
+      fontSans: 'Open Sans',
+      fontMono: 'Hack',
     };
     const template = await generateContent(content);
 
@@ -68,10 +69,7 @@ describe('generateContent', () => {
       '<link href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400;700&display=swap" rel="stylesheet">'
     );
     expect(template).toMatch(
-      '<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400&display=swap" rel="stylesheet">'
-    );
-    expect(template).not.toMatch(
-      '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">'
+      '<link href="https://fonts.googleapis.com/css2?family=Hack:wght@400;700&display=swap" rel="stylesheet">'
     );
   });
 });

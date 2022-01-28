@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import { injectClass, injectFonts } from '@/lib/injector';
+import { injectClass, injectFonts, injectTailwindConfig } from '@/lib/injector';
 
 import type { OpenGraphContent } from '@/lib/types';
 
@@ -192,5 +192,27 @@ describe('injectFonts', () => {
     const links = injectFonts(content);
 
     expect(links.length).toBe(0);
+  });
+});
+
+describe('injectTailwindConfig', () => {
+  it('should return empty string', () => {
+    const content: OpenGraphContent = {};
+    const output = injectTailwindConfig(content);
+
+    expect(output).toBe('');
+  });
+
+  it('should inject custom fonts', () => {
+    const content: OpenGraphContent = {
+      fontSans: 'Open Sans',
+      fontMono: 'Hack',
+      fontSerif: 'Merriweather',
+    };
+    const output = injectTailwindConfig(content);
+
+    expect(output).toMatch(/sans: \['Open Sans'\]/);
+    expect(output).toMatch(/mono: \['Hack'\]/);
+    expect(output).toMatch(/serif: \['Merriweather'\]/);
   });
 });

@@ -1,8 +1,8 @@
 import { parse } from 'markdown-wasm';
 
-import { injectClass } from '@/lib/injector';
+import { injectClass, injectFonts, injectTailwindConfig } from '@/lib/injector';
 import { sanitize } from '@/lib/sanitizer';
-import { getFontLinks, isValidImage } from '@/lib/utils';
+import { isValidImage } from '@/lib/utils';
 
 import type { OpenGraphContent } from '@/lib/types';
 
@@ -15,10 +15,15 @@ import type { OpenGraphContent } from '@/lib/types';
 export async function generateContent(
   content: OpenGraphContent
 ): Promise<string> {
-  const fonts = getFontLinks(content);
-  const font = content.fontFamily
-    ? `<link href="https://fonts.googleapis.com/css2?family=${content.fontFamily}:wght@400;700&display=swap" rel="stylesheet">`
-    : '';
+  const fonts = injectFonts(content);
+  const preconnect = fonts.length
+    ? [
+        '<link rel="preconnect" href="https://fonts.googleapis.com">',
+        '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
+      ]
+    : [];
+  const config = injectTailwindConfig(content);
+  const scripts = config ? `<script>${config}</script>` : '';
 
   const containerClass = injectClass(content.containerClass || '', 'container');
   const titleClass = injectClass(content.titleClass || '', 'title');
@@ -53,20 +58,10 @@ export async function generateContent(
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      ${font}
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+      ${preconnect.join('\n')}
+      ${fonts.join('\n')}
       <script src="https://cdn.tailwindcss.com"></script>
-      <script>
-        tailwind.config = {
-          theme: {
-            fontFamily: {
-              sans: ['${content.fontFamily || 'Inter'}'],
-            },
-          },
-        };
-      </script>
+      ${scripts}
     </head>
 
     <body>
