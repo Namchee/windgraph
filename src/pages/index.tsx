@@ -6,5 +6,5 @@ import * as React from 'react';
  * @returns {JSX.Element} home page
  */
 export default function Home(): JSX.Element {
-  return <p>Coming soon</p>;
+  return <h1>Under Construction</h1>;
 }
