@@ -1,0 +1,29 @@
+{
+  "cleanUrls": true,
+  "github": {
+    "enabled": false
+  },
+  "headers": [
+    {
+      "source": "/api/og/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, stale-while-revalidate=600, max-age=2629146"
+        },
+        {
+          "key": "Content-Type",
+          "value": "image/png"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "X-Powered-By",
+          "value": "Namchee"
+        }
+      ]
+    }
+  ]
+}

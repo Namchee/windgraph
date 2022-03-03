@@ -1,21 +1,22 @@
-import { generateContent } from '@/lib/template';
-import { captureScreen } from '@/lib/puppeteer';
+import { generateContent } from './../../src/lib/template';
+import { captureScreen } from './../../src/lib/puppeteer';
 
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { VercelRequest, VercelResponse } from '@vercel/node';
+
 import type { OpenGraphContent } from '@/lib/types';
 
 /**
  * Sample route handler
  *
- * @param {NextApiRequest} req request object
- * @param {NextApiResponse} res response object
- * @returns {Promise<NextApiResponse>} response object that contains generated
+ * @param {VercelRequest} req request object
+ * @param {VercelResponse} res response object
+ * @returns {Promise<VercelResponse>} response object that contains generated
  * open graph image
  */
 async function og(
-  req: NextApiRequest,
-  res: NextApiResponse
-): Promise<NextApiResponse> {
+  req: VercelRequest,
+  res: VercelResponse
+): Promise<VercelResponse> {
   const { query } = req;
 
   const content: OpenGraphContent = {
@@ -42,14 +43,7 @@ async function og(
     },
   });
 
-  res.setHeader('X-Powered-By', 'Namchee');
-  res.setHeader('Content-Type', 'image/png');
   res.setHeader('Content-Length', img.byteLength);
-  // Cache for one month
-  res.setHeader(
-    'Cache-Control',
-    'public, stale-while-revalidate=600, max-age=2629146'
-  );
 
   return res.status(200).end(img);
 }

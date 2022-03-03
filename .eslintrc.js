@@ -5,17 +5,12 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:jsdoc/recommended',
-    'next',
-    'next/core-web-vitals',
     'xo',
     'prettier',
   ],
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
-    },
   },
   rules: {
     'linebreak-style': ['error', 'windows'],

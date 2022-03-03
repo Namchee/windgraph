@@ -1,9 +1,9 @@
 import chromium from 'chrome-aws-lambda';
 
-import { HEIGHT, WIDTH } from '@/constant/api';
+import { HEIGHT, WIDTH } from './../constant/api';
 
 import type { Page } from 'puppeteer';
-import type { PageOptions } from '@/lib/types';
+import type { PageOptions } from './types';
 
 let page: Page;
 
