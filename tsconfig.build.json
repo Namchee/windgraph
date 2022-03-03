@@ -15,10 +15,11 @@
         "src/*"
       ]
     },
+    "resolveJsonModule": true,
     "allowJs": true,
-    "checkJs": true,
+    "checkJs": true, 
     "outDir": "./dist",
-    "esModuleInterop": true,
+    "esModuleInterop": true, 
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
@@ -28,6 +29,9 @@
     "**/*.ts",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/mocks/*.ts",
+    "vite.config.ts",
+    "**/*.test.ts"
   ]
 }

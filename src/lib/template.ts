@@ -1,10 +1,10 @@
 import { parse } from 'markdown-wasm';
 
-import { injectClass, injectFonts, injectTailwindConfig } from '@/lib/injector';
-import { sanitize } from '@/lib/sanitizer';
-import { isValidImage } from '@/lib/utils';
+import { injectClass, injectFonts, injectTailwindConfig } from './injector';
+import { sanitize } from './sanitizer';
+import { isValidImage } from './utils';
 
-import type { OpenGraphContent } from '@/lib/types';
+import type { OpenGraphContent } from './types';
 
 /**
  * Generate content based on provided user input

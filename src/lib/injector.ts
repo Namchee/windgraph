@@ -1,4 +1,4 @@
-import type { OpenGraphContent } from '@/lib/types';
+import type { OpenGraphContent } from './types';
 
 interface UtilMap {
   target: RegExp[];
