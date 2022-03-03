@@ -3,6 +3,7 @@
     "incremental": true,
     "target": "esnext",
     "lib": [
+      "DOM",
       "ES2020.Promise"
     ],
     "jsx": "preserve",
