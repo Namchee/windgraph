@@ -33,4 +33,4 @@ jobs:
       - name: Test code
         run: pnpm run test
       - name: Build the code
-        run: yarn build
+        run: pnpm run build
