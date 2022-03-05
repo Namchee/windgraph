@@ -1,10 +1,12 @@
-<h1 align="center">
-  Windgraph
-</h1>
+<p align="center">
+  <img src="./docs/banner.png" title="Windgraph" alt="Windgraph" />
+</p>
 
 Windgraph is a service that lets you generate a dynamic, Tailwind-powered Open Graph images that you can use either for SEO or just for social images.
 
 Inspired by [Vercel's original og-image](https://github.com/vercel/og-image).
+
+> Windgraph is still on active development. The API may change without prior notice.
 
 ## Features
 
