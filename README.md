@@ -58,3 +58,8 @@ Name | Description
 ## License
 
 This project is licensed under the [MIT License](./LICENSE)
+
+## Credits
+
+- Background image in sample open graph is taken by <a href="https://unsplash.com/@jrkorpa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jr Korpa</a> on <a href="https://unsplash.com/s/photos/neon?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+  
