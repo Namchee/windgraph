@@ -1,7 +1,7 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { generateContent } from '@/lib/template';
 
-import type { OpenGraphContent } from '@/lib/types';
+import type { OpenGraphRequest } from '@/lib/types';
 import { imgMockServer } from '@/mocks/server';
 
 // Class injection are tested separately
@@ -20,7 +20,7 @@ describe('generateContent', () => {
   });
 
   it.concurrent('should generate normal template', async () => {
-    const content: OpenGraphContent = {
+    const content: OpenGraphRequest = {
       title: 'Foo bar',
     };
     const template = await generateContent(content);
@@ -31,7 +31,7 @@ describe('generateContent', () => {
   });
 
   it.concurrent('should generate template with subtitles', async () => {
-    const content: OpenGraphContent = {
+    const content: OpenGraphRequest = {
       title: 'Foo bar',
       subtitle: 'bar baz',
     };
@@ -45,7 +45,7 @@ describe('generateContent', () => {
   it.concurrent(
     'should generate template with subtitles and images',
     async () => {
-      const content: OpenGraphContent = {
+      const content: OpenGraphRequest = {
         title: 'Foo bar',
         subtitle: 'bar baz',
         image: 'https://foo.bar/test.png',
@@ -59,7 +59,7 @@ describe('generateContent', () => {
   );
 
   it.concurrent('should recognize custom fonts request', async () => {
-    const content: OpenGraphContent = {
+    const content: OpenGraphRequest = {
       fontSans: 'Open Sans',
       fontMono: 'Hack',
     };

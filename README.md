@@ -49,11 +49,15 @@ Name | Description
 `font-serif` | Serif fonts to be used. Defaults to Tailwind's default. Must be used with `font-serif` class.
 `font-mono` | Monospaced fonts to be used. Defaults to Tailwind's default. Automatically used on code blocks.
 
-### Example
+## Example
 
 `https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b from-rose-400 via-fuchsia-500 to-indigo-500&subtitle=by Namchee&subtitle-class=text-white`
 
-![Windgraph Sample](./docs/sample.png)
+<img src="https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b from-rose-400 via-fuchsia-500 to-indigo-500&subtitle=by Namchee&subtitle-class=text-white" />
+
+## Using Custom Background
+
+
 
 ## License
 

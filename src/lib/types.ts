@@ -7,7 +7,7 @@ export interface PageOptions {
   dimension?: Dimension;
 }
 
-export interface OpenGraphContent {
+export interface OpenGraphRequest {
   title?: string;
   subtitle?: string;
   image?: string;
@@ -18,4 +18,6 @@ export interface OpenGraphContent {
   fontSans?: string;
   fontSerif?: string;
   fontMono?: string;
+  format?: string;
+  compress?: boolean;
 }

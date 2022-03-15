@@ -9,6 +9,7 @@
   "dependencies": {
     "@vercel/node": "^1.13.0",
     "chrome-aws-lambda": "^10.1.0",
+    "imagemin": "^8.0.1",
     "isomorphic-unfetch": "^3.1.0",
     "markdown-wasm": "^1.2.0",
     "puppeteer": "^13.1.1"

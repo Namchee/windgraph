@@ -54,7 +54,7 @@ export async function captureScreen(
     width: options?.dimension?.width || WIDTH,
     height: options?.dimension?.height || HEIGHT,
   });
-  await page.setContent(html, { waitUntil: 'networkidle2' });
+  await page.setContent(html, { waitUntil: 'networkidle0' });
 
   const file = (await page.screenshot({
     fullPage: true,

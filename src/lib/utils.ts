@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-unfetch';
+import { OpenGraphRequest } from './types';
 
 /**
  * Check if the provided image url directs to an image resource
@@ -19,5 +20,17 @@ export async function isValidImage(url: string): Promise<boolean> {
     );
   } catch (err) {
     return false;
+  }
+}
+
+/**
+ * Validate user request and perform auto correction with
+ * default values
+ *
+ * @param {OpenGraphRequest} req open graph request
+ */
+export function validateQuery(req: OpenGraphRequest) {
+  if (!req.format || !['jpg', 'png'].includes(req.format)) {
+    req.format = 'jpg';
   }
 }

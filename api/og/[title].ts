@@ -3,7 +3,7 @@ import { captureScreen } from './../../src/lib/puppeteer';
 
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
-import type { OpenGraphContent } from '@/lib/types';
+import type { OpenGraphRequest } from '@/lib/types';
 
 /**
  * Sample route handler
@@ -19,7 +19,7 @@ async function og(
 ): Promise<VercelResponse> {
   const { query } = req;
 
-  const content: OpenGraphContent = {
+  const ogRequest: OpenGraphRequest = {
     title: query.title as string,
     subtitle: query.subtitle as string,
     titleClass: query['title-class'] as string,
@@ -30,12 +30,14 @@ async function og(
     fontSans: query['font-sans'] as string,
     fontSerif: query['font-serif'] as string,
     fontMono: query['font-mono'] as string,
+    format: query.format as string,
+    compress: Boolean(query.compress || true),
   };
 
   const width = query.width as string;
   const height = query.height as string;
 
-  const html = await generateContent(content);
+  const html = await generateContent(ogRequest);
   const img = await captureScreen(html, {
     dimension: {
       width: Number.parseInt(width as string, 10),
