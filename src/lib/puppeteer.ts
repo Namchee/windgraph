@@ -2,7 +2,7 @@ import chromium from 'chrome-aws-lambda';
 
 import { HEIGHT, WIDTH } from './../constant/api';
 
-import type { Page } from 'puppeteer';
+import type { Page, ScreenshotOptions } from 'puppeteer';
 import type { PageOptions } from './types';
 
 let page: Page;
@@ -56,9 +56,17 @@ export async function captureScreen(
   });
   await page.setContent(html, { waitUntil: 'networkidle0' });
 
-  const file = (await page.screenshot({
+  const ssOptions: ScreenshotOptions = {
     fullPage: true,
-  })) as Buffer;
+    type: options?.format === 'jpg' ? 'jpeg' : 'png',
+  };
+
+  if (options?.format === 'jpg') {
+    ssOptions.type = 'jpeg';
+    ssOptions.quality = 75;
+  }
+
+  const file = (await page.screenshot(ssOptions)) as Buffer;
 
   return file;
 }

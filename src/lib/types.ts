@@ -5,6 +5,7 @@ export interface Dimension {
 
 export interface PageOptions {
   dimension?: Dimension;
+  format?: 'jpg' | 'png';
 }
 
 export interface OpenGraphRequest {
