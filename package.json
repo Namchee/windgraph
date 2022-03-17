@@ -7,6 +7,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@squoosh/lib": "^0.4.0",
     "@vercel/node": "^1.13.0",
     "chrome-aws-lambda": "^10.1.0",
     "imagemin": "^8.0.1",

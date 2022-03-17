@@ -1,5 +1,8 @@
 import fetch from 'isomorphic-unfetch';
-import { OpenGraphRequest } from './types';
+
+import { HEIGHT, WIDTH } from './../constant/api';
+
+import type { PageOptions } from './types';
 
 /**
  * Check if the provided image url directs to an image resource
@@ -27,10 +30,16 @@ export async function isValidImage(url: string): Promise<boolean> {
  * Validate user request and perform auto correction with
  * default values
  *
- * @param {OpenGraphRequest} req open graph request
+ * @param {Record<string, string>} req open graph request
+ * @returns {PageOptions} options for screen capture
  */
-export function validateQuery(req: OpenGraphRequest) {
-  if (!req.format || !['jpg', 'png'].includes(req.format)) {
-    req.format = 'jpg';
-  }
+export function generatePageOptions(req: Record<string, string>): PageOptions {
+  return {
+    dimension: {
+      width: Number.parseInt(req.width, 10) || WIDTH,
+      height: Number.parseInt(req.height, 10) || HEIGHT,
+    },
+    format: ['jpg', 'jpeg'].includes(req.format) ? 'jpg' : 'png',
+    compress: Boolean(req.compress),
+  };
 }

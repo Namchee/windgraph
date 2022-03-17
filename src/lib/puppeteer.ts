@@ -1,7 +1,5 @@
 import chromium from 'chrome-aws-lambda';
 
-import { HEIGHT, WIDTH } from './../constant/api';
-
 import type { Page, ScreenshotOptions } from 'puppeteer';
 import type { PageOptions } from './types';
 
@@ -51,19 +49,18 @@ export async function captureScreen(
 ): Promise<Buffer> {
   const page = await getPage();
   await page.setViewport({
-    width: options?.dimension?.width || WIDTH,
-    height: options?.dimension?.height || HEIGHT,
+    width: options?.dimension?.width as number,
+    height: options?.dimension?.height as number,
   });
-  await page.setContent(html, { waitUntil: 'networkidle0' });
+  await page.setContent(html, { waitUntil: 'networkidle2' });
 
   const ssOptions: ScreenshotOptions = {
     fullPage: true,
     type: options?.format === 'jpg' ? 'jpeg' : 'png',
   };
 
-  if (options?.format === 'jpg') {
-    ssOptions.type = 'jpeg';
-    ssOptions.quality = 75;
+  if (!options?.compress) {
+    ssOptions.quality = 70;
   }
 
   const file = (await page.screenshot(ssOptions)) as Buffer;

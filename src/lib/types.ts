@@ -4,8 +4,9 @@ export interface Dimension {
 }
 
 export interface PageOptions {
-  dimension?: Dimension;
-  format?: 'jpg' | 'png';
+  dimension: Dimension;
+  format: 'jpg' | 'png';
+  compress: boolean;
 }
 
 export interface OpenGraphRequest {
@@ -19,6 +20,4 @@ export interface OpenGraphRequest {
   fontSans?: string;
   fontSerif?: string;
   fontMono?: string;
-  format?: string;
-  compress?: boolean;
 }

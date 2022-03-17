@@ -2,9 +2,10 @@ import fetch from 'isomorphic-unfetch';
 
 import { describe, it, beforeAll, afterEach, afterAll, expect } from 'vitest';
 
+import { HEIGHT, WIDTH } from '@/constant/api';
+
 import { imgMockServer } from '@/mocks/server';
-import { isValidImage, validateQuery } from '@/lib/utils';
-import { OpenGraphRequest } from './types';
+import { isValidImage, generatePageOptions } from '@/lib/utils';
 
 describe('isValidImage', () => {
   beforeAll(() => {
@@ -47,32 +48,35 @@ describe('isValidImage', () => {
   });
 });
 
-describe('validateQuery', () => {
+describe('generatePageOptions', () => {
   it('should fallback to JPG if format does not exist', () => {
-    const req: OpenGraphRequest = {};
+    const req = {};
 
-    validateQuery(req);
+    const opts = generatePageOptions(req);
 
-    expect(req.format).toBe('jpg');
+    expect(opts.format).toBe('jpg');
   });
 
   it('should fallback to JPG if format is illegal', () => {
-    const req: OpenGraphRequest = {
+    const req = {
       format: 'webp',
     };
 
-    validateQuery(req);
+    const opts = generatePageOptions(req);
 
-    expect(req.format).toBe('jpg');
+    expect(opts.format).toBe('jpg');
   });
 
-  it('should not modify anything', () => {
-    const req: OpenGraphRequest = {
+  it('should fix illegal width and height', () => {
+    const req = {
+      width: '-1',
+      height: '0',
       format: 'png',
     };
 
-    validateQuery(req);
+    const opts = generatePageOptions(req);
 
-    expect(req.format).toBe('png');
+    expect(opts.dimension.width).toBe(WIDTH);
+    expect(opts.dimension.height).toBe(HEIGHT);
   });
 });
