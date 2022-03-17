@@ -57,12 +57,6 @@ Name | Description
 
 <img src="https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b from-rose-400 via-fuchsia-500 to-indigo-500&subtitle=by Namchee&subtitle-class=text-white" />
 
-## Using Custom Background
-
-Custom background is supported using Tailwind's [arbitrary values](https://v2.tailwindcss.com/docs/just-in-time-mode#arbitrary-value-support) using `bg-[url('xxx')]`. For example:
-
-
-
 ## License
 
 This project is licensed under the [MIT License](./LICENSE)
