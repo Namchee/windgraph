@@ -45,21 +45,21 @@ async function getPage(): Promise<Page> {
  */
 export async function captureScreen(
   html: string,
-  options?: PageOptions
+  options: PageOptions
 ): Promise<Buffer> {
   const page = await getPage();
   await page.setViewport({
-    width: options?.dimension?.width as number,
-    height: options?.dimension?.height as number,
+    width: options.dimension.width as number,
+    height: options.dimension.height as number,
   });
-  await page.setContent(html, { waitUntil: 'networkidle2' });
+  await page.setContent(html, { waitUntil: 'networkidle0' });
 
   const ssOptions: ScreenshotOptions = {
     fullPage: true,
-    type: options?.format === 'jpg' ? 'jpeg' : 'png',
+    type: options.format === 'jpg' ? 'jpeg' : 'png',
   };
 
-  if (!options?.compress) {
+  if (!options.compress && options.format === 'jpg') {
     ssOptions.quality = 70;
   }
 

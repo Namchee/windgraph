@@ -48,6 +48,8 @@ Name | Description
 `font-sans` | Sans serif fonts to be used. Defaults to Tailwind's default
 `font-serif` | Serif fonts to be used. Defaults to Tailwind's default. Must be used with `font-serif` class.
 `font-mono` | Monospaced fonts to be used. Defaults to Tailwind's default. Automatically used on code blocks.
+`format` | Image format. Allowed values are `jpg` and `png`. Defaults to `png`
+`compress` | Boolean value that represents if the image should be compressed or not. Default to `false` 
 
 ## Example
 
@@ -56,6 +58,8 @@ Name | Description
 <img src="https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b from-rose-400 via-fuchsia-500 to-indigo-500&subtitle=by Namchee&subtitle-class=text-white" />
 
 ## Using Custom Background
+
+Custom background is supported using Tailwind's [arbitrary values](https://v2.tailwindcss.com/docs/just-in-time-mode#arbitrary-value-support) using `bg-[url('xxx')]`. For example:
 
 
 
