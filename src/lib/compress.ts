@@ -1,12 +1,14 @@
-import { ImagePool } from '@squoosh/lib';
+import imagemin from 'imagemin';
+import imageminMozjpg from 'imagemin-mozjpeg';
+import imageminPngquant from 'imagemin-pngquant';
 
-const encodeOptions = {
-  mozjpeg: {
+const pluginOption = {
+  jpeg: imageminMozjpg({
     quality: 70,
-  },
-  oxipng: {
-    level: 4,
-  },
+  }),
+  png: imageminPngquant({
+    quality: [0.5, 0.7],
+  }),
 };
 
 /**
@@ -20,24 +22,7 @@ export async function compressImage(
   img: Buffer,
   format: 'jpeg' | 'png'
 ): Promise<Buffer> {
-  const imagePool = new ImagePool();
-
-  const image = imagePool.ingestImage(img);
-  await image.decoded;
-
-  await image.encode(encodeOptions);
-
-  let result = image.encodedWith.mozjpeg;
-
-  if (format === 'png') {
-    result = image.encodedWith.oxipng;
-  }
-
-  const encoded = await result;
-
-  const resultBuffer = Buffer.from(encoded.binary, 'binary');
-
-  await imagePool.close();
-
-  return resultBuffer;
+  return imagemin.buffer(img, {
+    plugins: [pluginOption[format]],
+  });
 }
