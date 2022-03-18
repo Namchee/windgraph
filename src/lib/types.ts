@@ -5,7 +5,7 @@ export interface Dimension {
 
 export interface PageOptions {
   dimension: Dimension;
-  format: 'jpg' | 'png';
+  format: 'jpeg' | 'png';
   compress: boolean;
 }
 

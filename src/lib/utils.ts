@@ -39,7 +39,7 @@ export function generatePageOptions(req: Record<string, string>): PageOptions {
       width: Number.parseInt(req.width, 10) || WIDTH,
       height: Number.parseInt(req.height, 10) || HEIGHT,
     },
-    format: ['jpg', 'jpeg'].includes(req.format) ? 'jpg' : 'png',
+    format: req.format === 'png' ? 'png' : 'jpeg',
     compress: Boolean(req.compress),
   };
 }

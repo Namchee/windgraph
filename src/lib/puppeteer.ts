@@ -56,10 +56,10 @@ export async function captureScreen(
 
   const ssOptions: ScreenshotOptions = {
     fullPage: true,
-    type: options.format === 'jpg' ? 'jpeg' : 'png',
+    type: options.format,
   };
 
-  if (!options.compress && options.format === 'jpg') {
+  if (!options.compress && options.format === 'jpeg') {
     ssOptions.quality = 70;
   }
 
