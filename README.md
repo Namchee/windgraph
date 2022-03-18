@@ -48,8 +48,8 @@ Name | Description
 `font-sans` | Sans serif fonts to be used. Defaults to Tailwind's default
 `font-serif` | Serif fonts to be used. Defaults to Tailwind's default. Must be used with `font-serif` class.
 `font-mono` | Monospaced fonts to be used. Defaults to Tailwind's default. Automatically used on code blocks.
-`format` | Image format. Allowed values are `jpg` and `png`. Defaults to `png`
-`compress` | Boolean value that represents if the image should be compressed or not. Default to `false` 
+`format` | Image format. Allowed values are `jpeg` and `png`. By default, `jpeg` is compressed to 80% quality. Defaults to `jpeg`
+`compress` | Boolean value that represents if the image should be compressed or not. This parameter allows for finer compression compared to the default `jpeg` compression. Default to `false` 
 
 ## Example
 
