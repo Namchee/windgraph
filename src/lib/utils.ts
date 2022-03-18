@@ -34,10 +34,13 @@ export async function isValidImage(url: string): Promise<boolean> {
  * @returns {PageOptions} options for screen capture
  */
 export function generatePageOptions(req: Record<string, string>): PageOptions {
+  const width = Number.parseInt(req.width, 10);
+  const height = Number.parseInt(req.height, 10);
+
   return {
     dimension: {
-      width: Number.parseInt(req.width, 10) || WIDTH,
-      height: Number.parseInt(req.height, 10) || HEIGHT,
+      width: !width || width < 0 ? WIDTH : width,
+      height: !height || height < 0 ? HEIGHT : height,
     },
     format: req.format === 'png' ? 'png' : 'jpeg',
     compress: 'compress' in req || Boolean(req.compress),

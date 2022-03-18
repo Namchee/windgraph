@@ -18,7 +18,7 @@ const encodeOptions = {
  */
 export async function compressImage(
   img: Buffer,
-  format: string
+  format: 'jpeg' | 'png'
 ): Promise<Buffer> {
   const imagePool = new ImagePool();
 

@@ -54,7 +54,7 @@ describe('generatePageOptions', () => {
 
     const opts = generatePageOptions(req);
 
-    expect(opts.format).toBe('jpg');
+    expect(opts.format).toBe('jpeg');
   });
 
   it('should fallback to JPG if format is illegal', () => {
@@ -64,7 +64,7 @@ describe('generatePageOptions', () => {
 
     const opts = generatePageOptions(req);
 
-    expect(opts.format).toBe('jpg');
+    expect(opts.format).toBe('jpeg');
   });
 
   it('should fix illegal width and height', () => {

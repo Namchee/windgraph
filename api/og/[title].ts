@@ -42,7 +42,7 @@ async function og(
   let img = await captureScreen(html, options);
 
   if (options.compress) {
-    img = await compressImage(img, options.format as string);
+    img = await compressImage(img, options.format);
   }
 
   res.setHeader('Content-Length', img.byteLength);
