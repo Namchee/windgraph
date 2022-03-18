@@ -1,6 +1,6 @@
 import chromium from 'chrome-aws-lambda';
 
-import type { Page, ScreenshotOptions } from 'puppeteer';
+import type { Page, ScreenshotOptions } from 'puppeteer-core';
 import type { PageOptions } from './types';
 
 let page: Page;
