@@ -41,7 +41,7 @@ async function og(
 
   let img = await captureScreen(html, options);
 
-  if (query.compress) {
+  if (options.compress) {
     img = await compressImage(img, options.format as string);
   }
 

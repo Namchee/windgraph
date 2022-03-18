@@ -60,7 +60,7 @@ export async function captureScreen(
   };
 
   if (!options.compress && options.format === 'jpeg') {
-    ssOptions.quality = 70;
+    ssOptions.quality = 80;
   }
 
   const file = (await page.screenshot(ssOptions)) as Buffer;

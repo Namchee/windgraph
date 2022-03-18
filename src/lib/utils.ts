@@ -40,6 +40,6 @@ export function generatePageOptions(req: Record<string, string>): PageOptions {
       height: Number.parseInt(req.height, 10) || HEIGHT,
     },
     format: req.format === 'png' ? 'png' : 'jpeg',
-    compress: Boolean(req.compress),
+    compress: 'compress' in req || Boolean(req.compress),
   };
 }
