@@ -9,16 +9,12 @@
           "value": "public, stale-while-revalidate=600, max-age=2629146"
         },
         {
-          "key": "Content-Type",
-          "value": "image/png"
-        },
-        {
           "key": "Access-Control-Allow-Origin",
           "value": "*"
         },
         {
           "key": "X-Powered-By",
-          "value": "Namchee"
+          "value": "Windgraph"
         }
       ]
     }

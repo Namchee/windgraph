@@ -46,6 +46,7 @@ async function og(
   }
 
   res.setHeader('Content-Length', img.byteLength);
+  res.setHeader('Content-Type', `image/${options.format}`);
 
   return res.status(200).end(img);
 }
