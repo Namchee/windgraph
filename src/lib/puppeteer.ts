@@ -16,13 +16,29 @@ async function getPage(): Promise<Page> {
     return page;
   }
 
-  const browser = await chromium.puppeteer.launch({
-    args: chromium.args,
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
-    headless: chromium.headless,
-    ignoreHTTPSErrors: true,
-  });
+  const options = process.env.AWS_REGION
+    ? {
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath,
+        headless: chromium.headless,
+        ignoreHTTPSErrors: true,
+      }
+    : {
+        args: [],
+        defaultViewport: chromium.defaultViewport,
+        executablePath:
+          // Change this accordingly
+          process.platform === 'win32'
+            ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
+            : process.platform === 'linux'
+            ? '/usr/bin/google-chrome'
+            : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+        headless: false,
+        ignoreHTTPSErrors: true,
+      };
+
+  const browser = await chromium.puppeteer.launch(options);
   const pages = await browser.pages();
 
   if (pages) {
@@ -55,7 +71,6 @@ export async function captureScreen(
   await page.setContent(html, { waitUntil: 'networkidle0' });
 
   const ssOptions: ScreenshotOptions = {
-    fullPage: true,
     type: options.format,
   };
 

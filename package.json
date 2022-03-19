@@ -2,7 +2,7 @@
   "name": "windgraph",
   "private": true,
   "scripts": {
-    "build": "esbuild api/og/[title].ts --bundle --minify --platform=node --outfile=dist/api/og/[title].js",
+    "build": "tsc --project tsconfig.build.json",
     "lint": "eslint src/**",
     "test": "vitest"
   },
@@ -18,7 +18,6 @@
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
     "@vercel/node": "^1.13.0",
-    "esbuild": "^0.14.27",
     "eslint": "8.7.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-xo": "^0.39.0",
@@ -26,9 +25,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "msw": "^0.36.7",
     "prettier": "^2.5.1",
-    "puppeteer": "^13.5.1",
     "typescript": "^4.5.5",
     "vite": "^2.8.6",
-    "vitest": "^0.5.9"
+    "vitest": "^0.7.4"
   }
 }
