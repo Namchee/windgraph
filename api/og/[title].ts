@@ -1,9 +1,11 @@
 import { generateContent } from './../../src/lib/template';
 import { captureScreen } from './../../src/lib/puppeteer';
+import { generatePageOptions } from './../../src/lib/utils';
+import { compressImage } from './../../src/lib/compress';
 
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
-import type { OpenGraphContent } from '@/lib/types';
+import type { OpenGraphRequest, PageOptions } from './../../src/lib/types';
 
 /**
  * Sample route handler
@@ -19,7 +21,7 @@ async function og(
 ): Promise<VercelResponse> {
   const { query } = req;
 
-  const content: OpenGraphContent = {
+  const ogRequest: OpenGraphRequest = {
     title: query.title as string,
     subtitle: query.subtitle as string,
     titleClass: query['title-class'] as string,
@@ -32,18 +34,18 @@ async function og(
     fontMono: query['font-mono'] as string,
   };
 
-  const width = query.width as string;
-  const height = query.height as string;
+  const html = await generateContent(ogRequest);
+  const options: PageOptions = generatePageOptions(
+    query as Record<string, string>
+  );
 
-  const html = await generateContent(content);
-  const img = await captureScreen(html, {
-    dimension: {
-      width: Number.parseInt(width as string, 10),
-      height: Number.parseInt(height as string, 10),
-    },
-  });
+  let img = await captureScreen(html, options);
+  if (options.compress && options.format === 'png') {
+    img = await compressImage(img);
+  }
 
   res.setHeader('Content-Length', img.byteLength);
+  res.setHeader('Content-Type', `image/${options.format}`);
 
   return res.status(200).end(img);
 }

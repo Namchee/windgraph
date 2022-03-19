@@ -4,10 +4,12 @@ export interface Dimension {
 }
 
 export interface PageOptions {
-  dimension?: Dimension;
+  dimension: Dimension;
+  format: 'jpeg' | 'png';
+  compress: boolean;
 }
 
-export interface OpenGraphContent {
+export interface OpenGraphRequest {
   title?: string;
   subtitle?: string;
   image?: string;

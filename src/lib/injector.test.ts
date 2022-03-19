@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 
 import { injectClass, injectFonts, injectTailwindConfig } from '@/lib/injector';
 
-import type { OpenGraphContent } from '@/lib/types';
+import type { OpenGraphRequest } from '@/lib/types';
 
 describe('injectClass', () => {
   describe('injectContainerClass', () => {
@@ -170,7 +170,7 @@ describe('injectClass', () => {
 
 describe('injectFonts', () => {
   it('should generate sans and mono variants', () => {
-    const content: OpenGraphContent = {
+    const content: OpenGraphRequest = {
       fontSans: 'Inter',
       fontMono: 'Hack',
     };
@@ -187,7 +187,7 @@ describe('injectFonts', () => {
   });
 
   it('should return empty array', () => {
-    const content: OpenGraphContent = {};
+    const content: OpenGraphRequest = {};
 
     const links = injectFonts(content);
 
@@ -197,14 +197,14 @@ describe('injectFonts', () => {
 
 describe('injectTailwindConfig', () => {
   it('should return empty string', () => {
-    const content: OpenGraphContent = {};
+    const content: OpenGraphRequest = {};
     const output = injectTailwindConfig(content);
 
     expect(output).toBe('');
   });
 
   it('should inject custom fonts', () => {
-    const content: OpenGraphContent = {
+    const content: OpenGraphRequest = {
       fontSans: 'Open Sans',
       fontMono: 'Hack',
       fontSerif: 'Merriweather',

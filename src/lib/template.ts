@@ -4,16 +4,16 @@ import { injectClass, injectFonts, injectTailwindConfig } from './injector';
 import { sanitize } from './sanitizer';
 import { isValidImage } from './utils';
 
-import type { OpenGraphContent } from './types';
+import type { OpenGraphRequest } from './types';
 
 /**
  * Generate content based on provided user input
  *
- * @param {OpenGraphContent} content user-provided open graph input
+ * @param {OpenGraphRequest} content user-provided open graph input
  * @returns {string} HTML string
  */
 export async function generateContent(
-  content: OpenGraphContent
+  content: OpenGraphRequest
 ): Promise<string> {
   const fonts = injectFonts(content);
   const preconnect = fonts.length

@@ -48,13 +48,20 @@ Name | Description
 `font-sans` | Sans serif fonts to be used. Defaults to Tailwind's default
 `font-serif` | Serif fonts to be used. Defaults to Tailwind's default. Must be used with `font-serif` class.
 `font-mono` | Monospaced fonts to be used. Defaults to Tailwind's default. Automatically used on code blocks.
+`format` | Image format. Allowed values are `jpeg` and `png`. By default, `jpeg` is compressed to 80% quality. Defaults to `jpeg`
+`compress` | Boolean value that represents if the image should be compressed or not. This parameter allows for finer compression compared to the default `jpeg` compression. Default to `false` 
 
-### Example
+## Example
 
 `https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b from-rose-400 via-fuchsia-500 to-indigo-500&subtitle=by Namchee&subtitle-class=text-white`
 
-![Windgraph Sample](./docs/sample.png)
+<img src="https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b from-rose-400 via-fuchsia-500 to-indigo-500&subtitle=by Namchee&subtitle-class=text-white" />
 
 ## License
 
 This project is licensed under the [MIT License](./LICENSE)
+
+## Credits
+
+- Background image in sample open graph is taken by <a href="https://unsplash.com/@jrkorpa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jr Korpa</a> on <a href="https://unsplash.com/s/photos/neon?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+  

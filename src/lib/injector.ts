@@ -1,4 +1,4 @@
-import type { OpenGraphContent } from './types';
+import type { OpenGraphRequest } from './types';
 
 interface UtilMap {
   target: RegExp[];
@@ -104,10 +104,10 @@ export function injectClass(style: string, el: OpenGraphElement): string {
 /**
  * Dynamically generated Google Fonts links based on user input
  *
- * @param {OpenGraphContent} content user input
+ * @param {OpenGraphRequest} content user input
  * @returns {string[]} list of font links
  */
-export function injectFonts(content: OpenGraphContent): string[] {
+export function injectFonts(content: OpenGraphRequest): string[] {
   return Object.entries(content)
     .filter(([key, value]) => key.startsWith('font') && Boolean(value))
     .map(
@@ -119,10 +119,10 @@ export function injectFonts(content: OpenGraphContent): string[] {
 /**
  * Dynamically generate Tailwind config based on user-input
  *
- * @param {OpenGraphContent} content user input
+ * @param {OpenGraphRequest} content user input
  * @returns {string} Tailwind config as a string
  */
-export function injectTailwindConfig(content: OpenGraphContent): string {
+export function injectTailwindConfig(content: OpenGraphRequest): string {
   const fonts = Object.entries(content).filter(
     ([key, value]) => key.startsWith('font') && Boolean(value)
   );
