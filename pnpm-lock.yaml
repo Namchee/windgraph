@@ -2,7 +2,6 @@ lockfileVersion: 5.3
 
 specifiers:
   '@types/imagemin': 7.0.1
-  '@types/imagemin-mozjpeg': ^8.0.1
   '@types/node': ^17.0.10
   '@typescript-eslint/eslint-plugin': ^5.10.0
   '@typescript-eslint/parser': ^5.10.0
@@ -14,7 +13,6 @@ specifiers:
   eslint-plugin-jsdoc: ^37.6.3
   eslint-plugin-prettier: ^4.0.0
   imagemin: 7.0.1
-  imagemin-mozjpeg: 9.0.0
   imagemin-pngquant: ^9.0.2
   isomorphic-unfetch: ^3.1.0
   markdown-wasm: ^1.2.0
@@ -28,7 +26,6 @@ specifiers:
 dependencies:
   chrome-aws-lambda: 10.1.0_puppeteer-core@10.1.0
   imagemin: 7.0.1
-  imagemin-mozjpeg: 9.0.0
   imagemin-pngquant: 9.0.2
   isomorphic-unfetch: 3.1.0
   markdown-wasm: 1.2.0
@@ -36,7 +33,6 @@ dependencies:
 
 devDependencies:
   '@types/imagemin': 7.0.1
-  '@types/imagemin-mozjpeg': 8.0.1
   '@types/node': 17.0.10
   '@typescript-eslint/eslint-plugin': 5.10.0_706fb07ce74b1db611f19a02ad2ce784
   '@typescript-eslint/parser': 5.10.0_eslint@8.7.0+typescript@4.5.5
@@ -164,12 +160,6 @@ packages:
       '@types/minimatch': 3.0.5
       '@types/node': 17.0.10
     dev: false
-
-  /@types/imagemin-mozjpeg/8.0.1:
-    resolution: {integrity: sha512-kMQWEoKxxhlnH4POI3qfW9DjXlQfi80ux3l2b3j5R3eudSCoUIzKQLkfMjNJ6eMYnMWBcB+rfQOWqIzdIwFGKw==}
-    dependencies:
-      '@types/imagemin': 7.0.1
-    dev: true
 
   /@types/imagemin/7.0.1:
     resolution: {integrity: sha512-xEn5+M3lDBtI3JxLy6eU3ksoVurygnlG7OYhTqJfGGP4PcvYnfn+IABCmMve7ziM/SneHDm5xgJFKC8hCYPicw==}
@@ -1786,15 +1776,6 @@ packages:
     resolution: {integrity: sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==}
     engines: {node: '>= 4'}
 
-  /imagemin-mozjpeg/9.0.0:
-    resolution: {integrity: sha512-TwOjTzYqCFRgROTWpVSt5UTT0JeCuzF1jswPLKALDd89+PmrJ2PdMMYeDLYZ1fs9cTovI9GJd68mRSnuVt691w==}
-    engines: {node: '>=10'}
-    dependencies:
-      execa: 4.1.0
-      is-jpg: 2.0.0
-      mozjpeg: 7.1.1
-    dev: false
-
   /imagemin-pngquant/9.0.2:
     resolution: {integrity: sha512-cj//bKo8+Frd/DM8l6Pg9pws1pnDUjgb7ae++sUX1kUVdv2nrngPykhiUOgFeE0LGY/LmUbCf4egCHC4YUcZSg==}
     engines: {node: '>=10'}
@@ -1910,11 +1891,6 @@ packages:
     resolution: {integrity: sha512-2HvIEKRoqS62guEC+qBjpvRubdX910WCMuJTZ+I9yvqKU2/12eSL549HMwtabb4oupdj2sMP50k+XJfB/8JE6w==}
     engines: {node: '>=8'}
     dev: true
-
-  /is-jpg/2.0.0:
-    resolution: {integrity: sha1-LhmX+m6RZuqsAkLarkQ0A+TvHZc=}
-    engines: {node: '>=6'}
-    dev: false
 
   /is-natural-number/4.0.1:
     resolution: {integrity: sha1-q5124dtM7VHjXeDHLr7PCfc0zeg=}
@@ -2163,16 +2139,6 @@ packages:
     hasBin: true
     dependencies:
       minimist: 1.2.5
-    dev: false
-
-  /mozjpeg/7.1.1:
-    resolution: {integrity: sha512-iIDxWvzhWvLC9mcRJ1uSkiKaj4drF58oCqK2bITm5c2Jt6cJ8qQjSSru2PCaysG+hLIinryj8mgz5ZJzOYTv1A==}
-    engines: {node: '>=10'}
-    hasBin: true
-    requiresBuild: true
-    dependencies:
-      bin-build: 3.0.0
-      bin-wrapper: 4.1.0
     dev: false
 
   /ms/2.1.2:
