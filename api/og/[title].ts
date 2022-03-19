@@ -1,6 +1,7 @@
 import { generateContent } from './../../src/lib/template';
 import { captureScreen } from './../../src/lib/puppeteer';
 import { generatePageOptions } from './../../src/lib/utils';
+import { compressImage } from './../../src/lib/compress';
 
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
@@ -38,13 +39,10 @@ async function og(
     query as Record<string, string>
   );
 
-  const img = await captureScreen(html, options);
-
-  /*
-  If (options.compress) {
+  let img = await captureScreen(html, options);
+  if (options.compress) {
     img = await compressImage(img, options.format);
   }
-  */
 
   res.setHeader('Content-Length', img.byteLength);
   res.setHeader('Content-Type', `image/${options.format}`);
