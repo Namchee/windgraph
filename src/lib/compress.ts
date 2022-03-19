@@ -11,7 +11,7 @@ export async function compressImage(img: Buffer): Promise<Buffer> {
   return imagemin.buffer(img, {
     plugins: [
       imageminPngquant({
-        quality: [0.5, 0.7],
+        quality: [0.7, 0.75],
       }),
     ],
   });
