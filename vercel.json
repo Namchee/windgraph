@@ -1,5 +1,10 @@
 {
   "cleanUrls": true,
+  "functions": {
+    "api/og/[title].ts": {
+      "excludeFiles": "docs/**/*"
+    }
+  },
   "headers": [
     {
       "source": "/api/og/(.*)",
