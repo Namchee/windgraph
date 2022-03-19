@@ -51,17 +51,27 @@ Name | Description
 `format` | Image format. Allowed values are `jpeg` and `png`. By default, `jpeg` is compressed to 80% quality. Defaults to `jpeg`
 `compress` | Boolean value that represents if the image should be compressed or not. This parameter allows for finer compression compared to the default `jpeg` compression. Default to `false` 
 
-## Example
+## Showcase
 
 `https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b%20from-rose-400%20via-fuchsia-500%20to-indigo-500&subtitle=by%20Namchee&subtitle-class=text-white`
 
 <img src="https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b%20from-rose-400%20via-fuchsia-500%20to-indigo-500&subtitle=by%20Namchee&subtitle-class=text-white" title="Sample Windgraph request" />
 
-You can also use images as a background by utilizing Tailwind's [arbitrary values](https://v2.tailwindcss.com/docs/just-in-time-mode#arbitrary-value-support). For example:
+## Advanced Usage
+
+### Background Images 
+
+You can use images or inline SVG as a background by utilizing Tailwind's [arbitrary values](https://v2.tailwindcss.com/docs/just-in-time-mode#arbitrary-value-support). For example: 
 
 `https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-[url('https://raw.githubusercontent.com/Namchee/windgraph/master/docs/background.jpg')]&subtitle=by%20Namchee&subtitle-class=text-white`
 
 <img src="https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-[url(%27https://raw.githubusercontent.com/Namchee/windgraph/master/docs/background.jpg%27)]%20bg-cover%20bg-fixed&subtitle=by%20Namchee&subtitle-class=text-white" />
+
+### Plaintext Title
+
+To avoid markdown processing, you can escape markdown characters by prepending it with `\` or `%5C`. For example:
+
+`https://windgraph.vercel.app/api/og/%5C*%5C*Hello%5C*%5C*,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b%20from-rose-400%20via-fuchsia-500%20to-indigo-500&subtitle=by%20Namchee&subtitle-class=text-white`
 
 ## Limitations
 
