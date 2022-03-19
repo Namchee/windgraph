@@ -2,7 +2,7 @@
   "cleanUrls": true,
   "functions": {
     "api/og/[title].ts": {
-      "excludeFiles": "docs/**/*"
+      "excludeFiles": "{+(.vercel|docs|.github)/**,pnpm-lock.yaml,README.md,.editorconfig,.eslintrc.js,.gitignore,.prettier.config.js,vite.config.ts}"
     }
   },
   "headers": [
