@@ -2,20 +2,25 @@ import { describe, vi, it, expect, afterEach } from 'vitest';
 
 import { compressImage } from '@/lib/compress';
 
-const bufferFn = vi.fn();
+const encodeFn = vi.fn();
+const closeFn = vi.fn();
 
-vi.mock('imagemin', () => ({
-  default: {
-    buffer: () => bufferFn(),
-  },
-}));
-
-vi.mock('imagemin-mozjpeg', () => ({
-  default: vi.fn(),
-}));
-
-vi.mock('imagemin-pngquant', () => ({
-  default: vi.fn(),
+vi.mock('@squoosh/lib', () => ({
+  ImagePool: vi.fn(() => ({
+    ingestImage: () => ({
+      decoded: Promise.resolve(),
+      encode: encodeFn,
+      encodedWith: {
+        mozjpeg: {
+          binary: '\xff\xfa\xc3\x4e',
+        },
+        oxipng: {
+          binary: '\xff\xfa\xc3\x4d',
+        },
+      },
+    }),
+    close: closeFn,
+  })),
 }));
 
 describe('compressImage', () => {
@@ -28,7 +33,8 @@ describe('compressImage', () => {
 
     await compressImage(img, 'jpeg');
 
-    expect(bufferFn).toHaveBeenCalledTimes(1);
+    expect(encodeFn).toHaveBeenCalledTimes(1);
+    expect(closeFn).toHaveBeenCalledTimes(1);
   });
 
   it('should compress the image in png format', async () => {
@@ -36,6 +42,7 @@ describe('compressImage', () => {
 
     await compressImage(img, 'png');
 
-    expect(bufferFn).toHaveBeenCalledTimes(1);
+    expect(encodeFn).toHaveBeenCalledTimes(1);
+    expect(closeFn).toHaveBeenCalledTimes(1);
   });
 });
