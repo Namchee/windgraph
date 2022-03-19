@@ -53,9 +53,27 @@ Name | Description
 
 ## Example
 
-`https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b from-rose-400 via-fuchsia-500 to-indigo-500&subtitle=by Namchee&subtitle-class=text-white`
+`https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b%20from-rose-400%20via-fuchsia-500%20to-indigo-500&subtitle=by%20Namchee&subtitle-class=text-white`
 
-<img src="https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b from-rose-400 via-fuchsia-500 to-indigo-500&subtitle=by Namchee&subtitle-class=text-white" />
+<img src="https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b%20from-rose-400%20via-fuchsia-500%20to-indigo-500&subtitle=by%20Namchee&subtitle-class=text-white" title="Sample Windgraph request" />
+
+You can also use images as a background by utilizing Tailwind's [arbitrary values](https://v2.tailwindcss.com/docs/just-in-time-mode#arbitrary-value-support). For example:
+
+`https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-[url('https://raw.githubusercontent.com/Namchee/windgraph/master/docs/background.jpg')]&subtitle=by%20Namchee&subtitle-class=text-white`
+
+<img src="https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-[url(%27https://raw.githubusercontent.com/Namchee/windgraph/master/docs/background.jpg%27)]%20bg-cover%20bg-fixed&subtitle=by%20Namchee&subtitle-class=text-white" />
+
+## Limitations
+
+Besides the limit of Tailwind itself, there are two main limitations of using Windgraph:
+
+### Static Template
+
+Currently you cannot use any other image template other than the provided one. This will be addressed in future releases.
+
+### URL Length Limitation
+
+While there are no actual limitations for URL length according to [RFC 2616](http://www.faqs.org/rfcs/rfc2616.html), it's recommended to keep the URL length to 2048 characters at maximum. Bearing that in mind, you shouldn't add too much Tailwind classes or using too much arbitrary values.
 
 ## License
 
