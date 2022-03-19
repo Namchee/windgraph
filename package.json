@@ -9,7 +9,6 @@
   "dependencies": {
     "@squoosh/lib": "^0.4.0",
     "chrome-aws-lambda": "^10.1.0",
-    "isomorphic-unfetch": "^3.1.0",
     "markdown-wasm": "^1.2.0",
     "puppeteer-core": "10.1.0"
   },
@@ -23,7 +22,6 @@
     "eslint-config-xo": "^0.39.0",
     "eslint-plugin-jsdoc": "^37.6.3",
     "eslint-plugin-prettier": "^4.0.0",
-    "msw": "^0.36.7",
     "prettier": "^2.5.1",
     "typescript": "^4.5.5",
     "vite": "^2.8.6",
