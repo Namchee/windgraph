@@ -1,10 +1,24 @@
-import { describe, expect, it } from 'vitest';
+import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { generateContent } from '@/lib/template';
 
 import type { OpenGraphRequest } from '@/lib/types';
+import { imgMockServer } from '@/mocks/server';
 
 // Class injection are tested separately
 describe('generateContent', () => {
+  beforeAll(() => {
+    global.fetch = fetch;
+    imgMockServer.listen();
+  });
+
+  afterEach(() => {
+    imgMockServer.resetHandlers();
+  });
+
+  afterAll(() => {
+    imgMockServer.close();
+  });
+
   it.concurrent('should generate normal template', async () => {
     const content: OpenGraphRequest = {
       title: 'Foo bar',

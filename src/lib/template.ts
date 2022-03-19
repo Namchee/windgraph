@@ -2,6 +2,7 @@ import { parse } from 'markdown-wasm';
 
 import { injectClass, injectFonts, injectTailwindConfig } from './injector';
 import { sanitize } from './sanitizer';
+import { isValidImage } from './utils';
 
 import type { OpenGraphRequest } from './types';
 
@@ -32,14 +33,24 @@ export async function generateContent(
   const titleContent = content.title ? sanitize(content.title) : '';
   const subtitleContent = content.subtitle ? sanitize(content.subtitle) : '';
 
+  let contentImage = '';
+
+  if (content.image) {
+    const isValid = await isValidImage(content.image);
+
+    if (isValid) {
+      contentImage = content.image;
+    }
+  }
+
   const title = titleContent
     ? `<h1 class="${titleClass}">${parse(titleContent)}</h1>`
     : '';
   const subtitle = subtitleContent
     ? `<h3 class="${subtitleClass}">${parse(subtitleContent)}</h3>`
     : '';
-  const img = content.image
-    ? `<img src="${content.image}" class="${imageClass}" />`
+  const img = contentImage
+    ? `<img src="${contentImage}" class="${imageClass}" />`
     : '';
 
   return `<!DOCTYPE html>
