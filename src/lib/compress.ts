@@ -7,7 +7,7 @@ const pluginOption = {
     quality: 70,
   }),
   png: imageminPngquant({
-    quality: [0.5, 0.7],
+    quality: [0.6, 0.7],
   }),
 };
 
