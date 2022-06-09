@@ -11,7 +11,7 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=2592000, s-maxage=2588400, stale-while-revalidate=3600"
+          "value": "s-maxage=2592000"
         },  
         {
           "key": "Access-Control-Allow-Origin",
