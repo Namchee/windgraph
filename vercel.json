@@ -10,6 +10,10 @@
       "source": "/api/og/(.*)",
       "headers": [
         {
+          "key": "Cache-Control",
+          "value": "public, immutable, no-transform, s-maxage=31536000, max-age=31536000"
+        },
+        {
           "key": "Access-Control-Allow-Origin",
           "value": "*"
         },

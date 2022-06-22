@@ -46,10 +46,6 @@ async function og(
 
   res.setHeader('Content-Length', img.byteLength);
   res.setHeader('Content-Type', `image/${options.format}`);
-  res.setHeader(
-    'Cache-Control',
-    'public, immutable, no-transform, s-maxage=2592000, max-age=2592000'
-  );
 
   return res.status(200).end(img);
 }
