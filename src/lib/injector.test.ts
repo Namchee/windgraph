@@ -171,6 +171,7 @@ describe('injectClass', () => {
 describe('injectFonts', () => {
   it('should generate sans and mono variants', () => {
     const content: OpenGraphRequest = {
+      title: 'foo',
       fontSans: 'Inter',
       fontMono: 'Hack',
     };
@@ -187,7 +188,9 @@ describe('injectFonts', () => {
   });
 
   it('should return empty array', () => {
-    const content: OpenGraphRequest = {};
+    const content: OpenGraphRequest = {
+      title: 'foo',
+    };
 
     const links = injectFonts(content);
 
@@ -197,7 +200,9 @@ describe('injectFonts', () => {
 
 describe('injectTailwindConfig', () => {
   it('should return empty string', () => {
-    const content: OpenGraphRequest = {};
+    const content: OpenGraphRequest = {
+      title: 'foo',
+    };
     const output = injectTailwindConfig(content);
 
     expect(output).toBe('');
@@ -205,6 +210,7 @@ describe('injectTailwindConfig', () => {
 
   it('should inject custom fonts', () => {
     const content: OpenGraphRequest = {
+      title: 'foo',
       fontSans: 'Open Sans',
       fontMono: 'Hack',
       fontSerif: 'Merriweather',
