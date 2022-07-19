@@ -37,14 +37,16 @@ Name | Description
 
 Name | Description
 ---- | -----------
-`subtitle` | Image subtitle, supports Markdown syntax.
-`image` | Hero image, must be an URL that responds with an image.
-`width` | Image width in pixels. Defaults to `1200`
-`height` | Image height in pixels. Defauls to `630`
+`subtitle` | Open Graph subtitle, supports Markdown syntax.
+`footer` | Open Graph footer, supports Markdown syntax.
+`image` | Image source, must be an accessible URL that responds with an image.
+`width` | Output image width in pixels. Defaults to `1200`
+`height` | Output image height in pixels. Defauls to `630`
 `container-class` | Tailwind CSS classes to be injected to main container. Defaults to `w-screen h-screen p-16 flex flex-col justify-center items-center`
 `title-class` | Tailwind CSS classes to be injected to `title`. Defaults to `text-center text-7xl leading-relaxed`
 `subtitle-class` | Tailwind CSS classes to be injected to `subtitle`. Defaults to `text-center text-2xl`
 `image-class` | Tailwind CSS classes to be injected to `image`. Defaults to `w-full h-auto max-w-[40vh]`
+`footer-class` | Tailwind CSS classes to be injected to `footer`. Defaults to `text-center text-sm`
 `font-sans` | Sans serif fonts to be used. Defaults to Tailwind's default
 `font-serif` | Serif fonts to be used. Defaults to Tailwind's default. Must be used with `font-serif` class.
 `font-mono` | Monospaced fonts to be used. Defaults to Tailwind's default. Automatically used on code blocks.
