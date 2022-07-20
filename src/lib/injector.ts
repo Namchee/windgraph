@@ -89,6 +89,10 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
       target: [/\bh-.+\b/],
       default: 'h-auto',
     },
+    {
+      target: [/\bmb-.+\b/],
+      default: 'mb-8',
+    },
   ],
 };
 

@@ -142,6 +142,7 @@ describe('injectClass', () => {
       expect(classes).toContain('w-xl');
       expect(classes).not.toContain('w-full');
       expect(classes).toContain('h-auto');
+      expect(classes).toContain('mb-8');
     });
 
     it('should inject all fallback classes', () => {
@@ -153,10 +154,11 @@ describe('injectClass', () => {
       expect(classes).toContain('max-w-[40vh]');
       expect(classes).toContain('w-full');
       expect(classes).toContain('h-auto');
+      expect(classes).toContain('mb-8');
     });
 
     it('should not do anything', () => {
-      const input = 'max-w-lg w-56 h-24';
+      const input = 'max-w-lg w-56 h-24 mb-12';
       const output = injectClass(input, 'image');
 
       const classes = output.split(' ');
@@ -164,6 +166,7 @@ describe('injectClass', () => {
       expect(classes).toContain('max-w-lg');
       expect(classes).toContain('w-56');
       expect(classes).toContain('h-24');
+      expect(classes).toContain('mb-12');
     });
   });
 });
