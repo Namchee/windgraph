@@ -29,9 +29,11 @@ export async function generateContent(
   const titleClass = injectClass(content.titleClass || '', 'title');
   const subtitleClass = injectClass(content.subtitleClass || '', 'subtitle');
   const imageClass = injectClass(content.imageClass || '', 'image');
+  const footerClass = injectClass(content.footerClass || '', 'footer');
 
   const titleContent = content.title ? sanitize(content.title) : '';
   const subtitleContent = content.subtitle ? sanitize(content.subtitle) : '';
+  const footerContent = content.footer ? sanitize(content.footer) : '';
 
   let contentImage = '';
 
@@ -52,6 +54,9 @@ export async function generateContent(
   const img = contentImage
     ? `<img src="${contentImage}" class="${imageClass}" />`
     : '';
+  const footer = footerContent
+    ? `<p class="${footerClass}">${parse(footerContent)}</p>`
+    : '';
 
   return `<!DOCTYPE html>
   <html>
@@ -66,10 +71,14 @@ export async function generateContent(
 
     <body>
       <div class="${containerClass}">
-        ${img}
-        <div>
+        <div class="row-start-2 flex flex-col items-center">
+          ${img}
           ${title}
           ${subtitle}
+        </div>
+
+        <div class="self-end row-start-3">
+          ${footer}
         </div>
       </div>
     </body>

@@ -30,7 +30,7 @@ async function og(
     titleClass: query['title-class'] as string,
     subtitleClass: query['subtitle-class'] as string,
     imageClass: query['image-class'] as string,
-    footerClass: query['image-footer'] as string,
+    footerClass: query['footer-class'] as string,
     fontSans: query['font-sans'] as string,
     fontSerif: query['font-serif'] as string,
     fontMono: query['font-mono'] as string,

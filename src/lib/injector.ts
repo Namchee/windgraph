@@ -33,7 +33,7 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
         /\bgrid\b/,
         /\binline-grid\b/,
       ],
-      default: 'flex flex-col justify-center items-center',
+      default: 'grid grid-rows-3 place-items-center',
     },
   ],
   title: [
