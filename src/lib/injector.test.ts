@@ -138,11 +138,10 @@ describe('injectClass', () => {
 
       const classes = output.split(' ');
 
-      expect(classes).toContain('max-w-[40vh]');
       expect(classes).toContain('w-xl');
-      expect(classes).not.toContain('w-full');
-      expect(classes).toContain('h-auto');
-      expect(classes).toContain('mb-8');
+      expect(classes).not.toContain('w-32');
+      expect(classes).toContain('h-32');
+      expect(classes).toContain('mb-4');
     });
 
     it('should inject all fallback classes', () => {
@@ -151,10 +150,9 @@ describe('injectClass', () => {
 
       const classes = output.split(' ');
 
-      expect(classes).toContain('max-w-[40vh]');
-      expect(classes).toContain('w-full');
-      expect(classes).toContain('h-auto');
-      expect(classes).toContain('mb-8');
+      expect(classes).toContain('w-32');
+      expect(classes).toContain('h-32');
+      expect(classes).toContain('mb-4');
     });
 
     it('should not do anything', () => {
@@ -163,7 +161,6 @@ describe('injectClass', () => {
 
       const classes = output.split(' ');
 
-      expect(classes).toContain('max-w-lg');
       expect(classes).toContain('w-56');
       expect(classes).toContain('h-24');
       expect(classes).toContain('mb-12');

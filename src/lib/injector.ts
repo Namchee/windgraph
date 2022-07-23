@@ -78,20 +78,16 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
   ],
   image: [
     {
-      target: [/\bmax-w-.+\b/],
-      default: 'max-w-[40vh]',
-    },
-    {
       target: [/\bw-.+\b/],
-      default: 'w-full',
+      default: 'w-32',
     },
     {
       target: [/\bh-.+\b/],
-      default: 'h-auto',
+      default: 'h-32',
     },
     {
       target: [/\bmb-.+\b/],
-      default: 'mb-8',
+      default: 'mb-4',
     },
   ],
 };
