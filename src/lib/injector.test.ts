@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import { injectDefaultClasses, injectFontLinks, injectTailwindConfig } from '@/lib/injector';
+import { injectClassToElement, injectDefaultClasses, injectFontLinks, injectTailwindConfig } from '@/lib/injector';
 
 import type { OpenGraphRequest } from '@/lib/types';
 
@@ -218,5 +218,25 @@ describe('injectTailwindConfig', () => {
     expect(output).toMatch(/sans: \['Open Sans'\]/);
     expect(output).toMatch(/mono: \['Hack'\]/);
     expect(output).toMatch(/serif: \['Merriweather'\]/);
+  });
+});
+
+describe('injectClassToElement', () => {
+  it('should inject classes to element', () => {
+    const el = '<p>Hello World!</p>';
+    const className = 'text-dark';
+
+    const got = injectClassToElement(el, className);
+
+    expect(got).toBe('<p class="text-dark">Hello World!</p>');
+  });
+
+  it('should replace the default element', () => {
+    const el = '<p>Hello World!</p>';
+    const className = 'text-dark';
+
+    const got = injectClassToElement(el, className, 'h1');
+
+    expect(got).toBe('<h1 class="text-dark">Hello World!</h1>');
   });
 });
