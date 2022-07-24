@@ -1,14 +1,14 @@
 import { describe, it, expect } from 'vitest';
 
-import { injectClass, injectFonts, injectTailwindConfig } from '@/lib/injector';
+import { injectDefaultClasses, injectFontLinks, injectTailwindConfig } from '@/lib/injector';
 
 import type { OpenGraphRequest } from '@/lib/types';
 
-describe('injectClass', () => {
+describe('injectDefaultClasses', () => {
   describe('injectContainerClass', () => {
     it('should inject some fallback classes', () => {
       const input = 'p-24';
-      const output = injectClass(input, 'container');
+      const output = injectDefaultClasses(input, 'container');
 
       const classes = output.split(' ');
       expect(classes).toContain('w-screen');
@@ -23,7 +23,7 @@ describe('injectClass', () => {
 
     it('should inject all fallback classes', () => {
       const input = '';
-      const output = injectClass(input, 'container');
+      const output = injectDefaultClasses(input, 'container');
 
       const classes = output.split(' ');
       expect(classes).toContain('w-screen');
@@ -37,7 +37,7 @@ describe('injectClass', () => {
 
     it('should not inject any classes', () => {
       const input = 'w-full h-full p-48 flex justify-center items-center';
-      const output = injectClass(input, 'container');
+      const output = injectDefaultClasses(input, 'container');
 
       const classes = output.split(' ');
       expect(classes).toContain('w-full');
@@ -57,7 +57,7 @@ describe('injectClass', () => {
   describe('injectTitleClass', () => {
     it('should inject some fallback classes', () => {
       const input = 'text-5xl';
-      const output = injectClass(input, 'title');
+      const output = injectDefaultClasses(input, 'title');
 
       const classes = output.split(' ');
 
@@ -69,7 +69,7 @@ describe('injectClass', () => {
 
     it('should inject all fallback classes', () => {
       const input = '';
-      const output = injectClass(input, 'title');
+      const output = injectDefaultClasses(input, 'title');
 
       const classes = output.split(' ');
       expect(classes).toContain('text-center');
@@ -80,7 +80,7 @@ describe('injectClass', () => {
     it('should not inject any classes', () => {
       const input =
         'text-4xl leading-loose tracking-wider text-red-500 text-left';
-      const output = injectClass(input, 'title');
+      const output = injectDefaultClasses(input, 'title');
 
       const classes = output.split(' ');
 
@@ -98,7 +98,7 @@ describe('injectClass', () => {
   describe('injectSubtitleClass', () => {
     it('should inject some fallback classes', () => {
       const input = 'text-3xl';
-      const output = injectClass(input, 'subtitle');
+      const output = injectDefaultClasses(input, 'subtitle');
 
       const classes = output.split(' ');
 
@@ -109,7 +109,7 @@ describe('injectClass', () => {
 
     it('should inject all fallback classes', () => {
       const input = '';
-      const output = injectClass(input, 'subtitle');
+      const output = injectDefaultClasses(input, 'subtitle');
 
       const classes = output.split(' ');
       expect(classes).toContain('text-center');
@@ -118,7 +118,7 @@ describe('injectClass', () => {
 
     it('should not inject any classes', () => {
       const input = 'text-xl text-right text-gray-400';
-      const output = injectClass(input, 'subtitle');
+      const output = injectDefaultClasses(input, 'subtitle');
 
       const classes = output.split(' ');
 
@@ -134,7 +134,7 @@ describe('injectClass', () => {
   describe('injectImageClass', () => {
     it('should inject some fallback classes', () => {
       const input = 'w-xl';
-      const output = injectClass(input, 'image');
+      const output = injectDefaultClasses(input, 'image');
 
       const classes = output.split(' ');
 
@@ -146,7 +146,7 @@ describe('injectClass', () => {
 
     it('should inject all fallback classes', () => {
       const input = '';
-      const output = injectClass(input, 'image');
+      const output = injectDefaultClasses(input, 'image');
 
       const classes = output.split(' ');
 
@@ -157,7 +157,7 @@ describe('injectClass', () => {
 
     it('should not do anything', () => {
       const input = 'max-w-lg w-56 h-24 mb-12';
-      const output = injectClass(input, 'image');
+      const output = injectDefaultClasses(input, 'image');
 
       const classes = output.split(' ');
 
@@ -176,7 +176,7 @@ describe('injectFonts', () => {
       fontMono: 'Hack',
     };
 
-    const links = injectFonts(content);
+    const links = injectFontLinks(content);
 
     expect(links.length).toBe(2);
     expect(links).toContain(
@@ -192,7 +192,7 @@ describe('injectFonts', () => {
       title: 'foo',
     };
 
-    const links = injectFonts(content);
+    const links = injectFontLinks(content);
 
     expect(links.length).toBe(0);
   });
