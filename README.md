@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/banner.png" title="Windgraph" alt="Windgraph" />
+  <img src="./docs/banner.jpeg" title="Windgraph" alt="Windgraph" />
 </p>
 
 Windgraph is a service that lets you generate a dynamic, Tailwind-powered Open Graph images that you can use either for SEO or just for social images.
@@ -10,16 +10,18 @@ Inspired by [Vercel's original og-image](https://github.com/vercel/og-image).
 
 ## Features
 
-- Markdown styling
-- Sensible default styles
+- Markdown syntax support
+- Batteries-included default styling
 - Latest Tailwind features, including [arbitrary values](https://tailwindcss.com/docs/adding-custom-styles#using-arbitrary-values)
 - Customizable fonts powered by [Google Fonts](https://fonts.google.com/)
 
 ## Open Graph Template
 
-By default, windgraph will generate images in the following structure.
+By default, `windgraph` will generate Open Graph images in the following structure.
 
 ![Windgraph Template](./docs/skeleton.png)
+
+> More templates and custom templates are coming soon! Stay tuned.
 
 ## API
 
@@ -75,13 +77,15 @@ To avoid markdown processing, you can escape markdown characters by prepending i
 
 `https://windgraph.vercel.app/api/og/%5C*%5C*Hello%5C*%5C*,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b%20from-rose-400%20via-fuchsia-500%20to-indigo-500&subtitle=by%20Namchee&subtitle-class=text-white`
 
+<img src="https://windgraph.vercel.app/api/og/%5C*%5C*Hello%5C*%5C*,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b%20from-rose-400%20via-fuchsia-500%20to-indigo-500&subtitle=by%20Namchee&subtitle-class=text-white" />
+
 ## Limitations
 
 Besides the limit of Tailwind itself, there are two main limitations of using Windgraph:
 
 ### Static Template
 
-Currently you cannot use any other image template other than the provided one. This will be addressed in future releases.
+Currently you cannot use any other template other than the provided one. This will be addressed in future releases.
 
 ### URL Length Limitation
 
