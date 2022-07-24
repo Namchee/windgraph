@@ -60,6 +60,7 @@ describe('generateContent', () => {
 
   it.concurrent('should recognize custom fonts request', async () => {
     const content: OpenGraphRequest = {
+      title: 'foo',
       fontSans: 'Open Sans',
       fontMono: 'Hack',
     };

@@ -5,7 +5,7 @@ interface UtilMap {
   default: string;
 }
 
-type OpenGraphElement = 'container' | 'title' | 'subtitle' | 'image';
+type OpenGraphElement = 'container' | 'title' | 'subtitle' | 'image' | 'footer';
 
 const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
   container: [
@@ -33,7 +33,7 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
         /\bgrid\b/,
         /\binline-grid\b/,
       ],
-      default: 'flex flex-col justify-center items-center',
+      default: 'grid grid-rows-3 place-items-center',
     },
   ],
   title: [
@@ -64,30 +64,46 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
       default: 'text-3xl',
     },
   ],
-  image: [
+  footer: [
     {
-      target: [/\bmax-w-.+\b/],
-      default: 'max-w-[40vh]',
+      target: [/\btext-(left|center|right|justify)\b/],
+      default: 'text-center',
     },
     {
+      target: [
+        /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|px|rem|em|ch|vh|vw|ex)\b/,
+      ],
+      default: 'text-sm',
+    },
+  ],
+  image: [
+    {
       target: [/\bw-.+\b/],
-      default: 'w-full',
+      default: 'w-32',
     },
     {
       target: [/\bh-.+\b/],
-      default: 'h-auto',
+      default: 'h-32',
+    },
+    {
+      target: [/\bmb-.+\b/],
+      default: 'mb-4',
     },
   ],
 };
 
 /**
- * Inject default container style if custom styles are not present
+ * Inject default styles to user-provided style if custom styles are
+ * not provided
  *
  * @param {string} style user-provided CSS classes
  * @param {OpenGraphElement} el element type to be applied
  * @returns {string} user-provided CSS classes with fallback values
  */
-export function injectClass(style: string, el: OpenGraphElement): string {
+export function injectDefaultClasses(
+  style: string,
+  el: OpenGraphElement
+): string {
   let injected = style.trim();
 
   for (const utils of utilsMap[el]) {
@@ -102,12 +118,37 @@ export function injectClass(style: string, el: OpenGraphElement): string {
 }
 
 /**
+ * Inject CSS classes to markdown-generated element
+ *
+ * @param {string} el HTML element in string form
+ * @param {string} className CSS classes to inject
+ * @param {string?} as output HTML tag, optional
+ * @returns {string} HTML element with the provided class
+ */
+export function injectClassToElement(
+  el: string,
+  className: string,
+  as?: string
+): string {
+  el = el.trim();
+  const tag = el.match(/^<(\w+)>/) as RegExpMatchArray;
+
+  if (!as) {
+    as = tag.pop();
+  }
+
+  const textContent = el.slice(tag[0].length, -(tag[0].length + 1));
+
+  return `<${as} class="${className}">${textContent}</${as}>`;
+}
+
+/**
  * Dynamically generated Google Fonts links based on user input
  *
  * @param {OpenGraphRequest} content user input
  * @returns {string[]} list of font links
  */
-export function injectFonts(content: OpenGraphRequest): string[] {
+export function injectFontLinks(content: OpenGraphRequest): string[] {
   return Object.entries(content)
     .filter(([key, value]) => key.startsWith('font') && Boolean(value))
     .map(

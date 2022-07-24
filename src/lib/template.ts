@@ -1,6 +1,11 @@
 import { parse } from 'markdown-wasm';
 
-import { injectClass, injectFonts, injectTailwindConfig } from './injector';
+import {
+  injectClassToElement,
+  injectDefaultClasses,
+  injectFontLinks,
+  injectTailwindConfig,
+} from './injector';
 import { sanitize } from './sanitizer';
 import { isValidImage } from './utils';
 
@@ -15,7 +20,7 @@ import type { OpenGraphRequest } from './types';
 export async function generateContent(
   content: OpenGraphRequest
 ): Promise<string> {
-  const fonts = injectFonts(content);
+  const fonts = injectFontLinks(content);
   const preconnect = fonts.length
     ? [
         '<link rel="preconnect" href="https://fonts.googleapis.com">',
@@ -25,13 +30,21 @@ export async function generateContent(
   const config = injectTailwindConfig(content);
   const scripts = config ? `<script>${config}</script>` : '';
 
-  const containerClass = injectClass(content.containerClass || '', 'container');
-  const titleClass = injectClass(content.titleClass || '', 'title');
-  const subtitleClass = injectClass(content.subtitleClass || '', 'subtitle');
-  const imageClass = injectClass(content.imageClass || '', 'image');
+  const containerClass = injectDefaultClasses(
+    content.containerClass || '',
+    'container'
+  );
+  const titleClass = injectDefaultClasses(content.titleClass || '', 'title');
+  const subtitleClass = injectDefaultClasses(
+    content.subtitleClass || '',
+    'subtitle'
+  );
+  const imageClass = injectDefaultClasses(content.imageClass || '', 'image');
+  const footerClass = injectDefaultClasses(content.footerClass || '', 'footer');
 
   const titleContent = content.title ? sanitize(content.title) : '';
   const subtitleContent = content.subtitle ? sanitize(content.subtitle) : '';
+  const footerContent = content.footer ? sanitize(content.footer) : '';
 
   let contentImage = '';
 
@@ -44,13 +57,16 @@ export async function generateContent(
   }
 
   const title = titleContent
-    ? `<h1 class="${titleClass}">${parse(titleContent)}</h1>`
+    ? injectClassToElement(parse(titleContent), titleClass, 'h1')
     : '';
   const subtitle = subtitleContent
-    ? `<h3 class="${subtitleClass}">${parse(subtitleContent)}</h3>`
+    ? injectClassToElement(parse(subtitleContent), subtitleClass, 'h3')
     : '';
   const img = contentImage
     ? `<img src="${contentImage}" class="${imageClass}" />`
+    : '';
+  const footer = footerContent
+    ? injectClassToElement(parse(footerContent), footerClass, 'p')
     : '';
 
   return `<!DOCTYPE html>
@@ -66,10 +82,14 @@ export async function generateContent(
 
     <body>
       <div class="${containerClass}">
-        ${img}
-        <div>
+        <div class="row-start-2 flex flex-col items-center">
+          ${img}
           ${title}
           ${subtitle}
+        </div>
+
+        <div class="self-end row-start-3">
+          ${footer}
         </div>
       </div>
     </body>

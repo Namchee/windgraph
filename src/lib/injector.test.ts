@@ -1,43 +1,46 @@
 import { describe, it, expect } from 'vitest';
 
-import { injectClass, injectFonts, injectTailwindConfig } from '@/lib/injector';
+import {
+  injectClassToElement,
+  injectDefaultClasses,
+  injectFontLinks,
+  injectTailwindConfig,
+} from '@/lib/injector';
 
 import type { OpenGraphRequest } from '@/lib/types';
 
-describe('injectClass', () => {
+describe('injectDefaultClasses', () => {
   describe('injectContainerClass', () => {
     it('should inject some fallback classes', () => {
       const input = 'p-24';
-      const output = injectClass(input, 'container');
+      const output = injectDefaultClasses(input, 'container');
 
       const classes = output.split(' ');
       expect(classes).toContain('w-screen');
       expect(classes).toContain('h-screen');
       expect(classes).not.toContain('p-16');
       expect(classes).toContain('p-24');
-      expect(classes).toContain('flex');
-      expect(classes).toContain('flex-col');
-      expect(classes).toContain('justify-center');
-      expect(classes).toContain('items-center');
+      expect(classes).toContain('grid');
+      expect(classes).toContain('place-items-center');
+      expect(classes).toContain('grid-rows-3');
     });
 
     it('should inject all fallback classes', () => {
       const input = '';
-      const output = injectClass(input, 'container');
+      const output = injectDefaultClasses(input, 'container');
 
       const classes = output.split(' ');
       expect(classes).toContain('w-screen');
       expect(classes).toContain('h-screen');
       expect(classes).toContain('p-16');
-      expect(classes).toContain('flex');
-      expect(classes).toContain('flex-col');
-      expect(classes).toContain('justify-center');
-      expect(classes).toContain('items-center');
+      expect(classes).toContain('grid');
+      expect(classes).toContain('place-items-center');
+      expect(classes).toContain('grid-rows-3');
     });
 
     it('should not inject any classes', () => {
       const input = 'w-full h-full p-48 flex justify-center items-center';
-      const output = injectClass(input, 'container');
+      const output = injectDefaultClasses(input, 'container');
 
       const classes = output.split(' ');
       expect(classes).toContain('w-full');
@@ -57,7 +60,7 @@ describe('injectClass', () => {
   describe('injectTitleClass', () => {
     it('should inject some fallback classes', () => {
       const input = 'text-5xl';
-      const output = injectClass(input, 'title');
+      const output = injectDefaultClasses(input, 'title');
 
       const classes = output.split(' ');
 
@@ -69,7 +72,7 @@ describe('injectClass', () => {
 
     it('should inject all fallback classes', () => {
       const input = '';
-      const output = injectClass(input, 'title');
+      const output = injectDefaultClasses(input, 'title');
 
       const classes = output.split(' ');
       expect(classes).toContain('text-center');
@@ -80,7 +83,7 @@ describe('injectClass', () => {
     it('should not inject any classes', () => {
       const input =
         'text-4xl leading-loose tracking-wider text-red-500 text-left';
-      const output = injectClass(input, 'title');
+      const output = injectDefaultClasses(input, 'title');
 
       const classes = output.split(' ');
 
@@ -98,7 +101,7 @@ describe('injectClass', () => {
   describe('injectSubtitleClass', () => {
     it('should inject some fallback classes', () => {
       const input = 'text-3xl';
-      const output = injectClass(input, 'subtitle');
+      const output = injectDefaultClasses(input, 'subtitle');
 
       const classes = output.split(' ');
 
@@ -109,7 +112,7 @@ describe('injectClass', () => {
 
     it('should inject all fallback classes', () => {
       const input = '';
-      const output = injectClass(input, 'subtitle');
+      const output = injectDefaultClasses(input, 'subtitle');
 
       const classes = output.split(' ');
       expect(classes).toContain('text-center');
@@ -118,7 +121,7 @@ describe('injectClass', () => {
 
     it('should not inject any classes', () => {
       const input = 'text-xl text-right text-gray-400';
-      const output = injectClass(input, 'subtitle');
+      const output = injectDefaultClasses(input, 'subtitle');
 
       const classes = output.split(' ');
 
@@ -134,36 +137,36 @@ describe('injectClass', () => {
   describe('injectImageClass', () => {
     it('should inject some fallback classes', () => {
       const input = 'w-xl';
-      const output = injectClass(input, 'image');
+      const output = injectDefaultClasses(input, 'image');
 
       const classes = output.split(' ');
 
-      expect(classes).toContain('max-w-[40vh]');
       expect(classes).toContain('w-xl');
-      expect(classes).not.toContain('w-full');
-      expect(classes).toContain('h-auto');
+      expect(classes).not.toContain('w-32');
+      expect(classes).toContain('h-32');
+      expect(classes).toContain('mb-4');
     });
 
     it('should inject all fallback classes', () => {
       const input = '';
-      const output = injectClass(input, 'image');
+      const output = injectDefaultClasses(input, 'image');
 
       const classes = output.split(' ');
 
-      expect(classes).toContain('max-w-[40vh]');
-      expect(classes).toContain('w-full');
-      expect(classes).toContain('h-auto');
+      expect(classes).toContain('w-32');
+      expect(classes).toContain('h-32');
+      expect(classes).toContain('mb-4');
     });
 
     it('should not do anything', () => {
-      const input = 'max-w-lg w-56 h-24';
-      const output = injectClass(input, 'image');
+      const input = 'max-w-lg w-56 h-24 mb-12';
+      const output = injectDefaultClasses(input, 'image');
 
       const classes = output.split(' ');
 
-      expect(classes).toContain('max-w-lg');
       expect(classes).toContain('w-56');
       expect(classes).toContain('h-24');
+      expect(classes).toContain('mb-12');
     });
   });
 });
@@ -171,11 +174,12 @@ describe('injectClass', () => {
 describe('injectFonts', () => {
   it('should generate sans and mono variants', () => {
     const content: OpenGraphRequest = {
+      title: 'foo',
       fontSans: 'Inter',
       fontMono: 'Hack',
     };
 
-    const links = injectFonts(content);
+    const links = injectFontLinks(content);
 
     expect(links.length).toBe(2);
     expect(links).toContain(
@@ -187,9 +191,11 @@ describe('injectFonts', () => {
   });
 
   it('should return empty array', () => {
-    const content: OpenGraphRequest = {};
+    const content: OpenGraphRequest = {
+      title: 'foo',
+    };
 
-    const links = injectFonts(content);
+    const links = injectFontLinks(content);
 
     expect(links.length).toBe(0);
   });
@@ -197,7 +203,9 @@ describe('injectFonts', () => {
 
 describe('injectTailwindConfig', () => {
   it('should return empty string', () => {
-    const content: OpenGraphRequest = {};
+    const content: OpenGraphRequest = {
+      title: 'foo',
+    };
     const output = injectTailwindConfig(content);
 
     expect(output).toBe('');
@@ -205,6 +213,7 @@ describe('injectTailwindConfig', () => {
 
   it('should inject custom fonts', () => {
     const content: OpenGraphRequest = {
+      title: 'foo',
       fontSans: 'Open Sans',
       fontMono: 'Hack',
       fontSerif: 'Merriweather',
@@ -214,5 +223,25 @@ describe('injectTailwindConfig', () => {
     expect(output).toMatch(/sans: \['Open Sans'\]/);
     expect(output).toMatch(/mono: \['Hack'\]/);
     expect(output).toMatch(/serif: \['Merriweather'\]/);
+  });
+});
+
+describe('injectClassToElement', () => {
+  it('should inject classes to element', () => {
+    const el = '<p>Hello World!</p>';
+    const className = 'text-dark';
+
+    const got = injectClassToElement(el, className);
+
+    expect(got).toBe('<p class="text-dark">Hello World!</p>');
+  });
+
+  it('should replace the default element', () => {
+    const el = '<p>Hello World!</p>';
+    const className = 'text-dark';
+
+    const got = injectClassToElement(el, className, 'h1');
+
+    expect(got).toBe('<h1 class="text-dark">Hello World!</h1>');
   });
 });
