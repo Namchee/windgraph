@@ -100,7 +100,10 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
  * @param {OpenGraphElement} el element type to be applied
  * @returns {string} user-provided CSS classes with fallback values
  */
-export function injectDefaultClasses(style: string, el: OpenGraphElement): string {
+export function injectDefaultClasses(
+  style: string,
+  el: OpenGraphElement
+): string {
   let injected = style.trim();
 
   for (const utils of utilsMap[el]) {
@@ -118,14 +121,14 @@ export function injectDefaultClasses(style: string, el: OpenGraphElement): strin
  * Inject CSS classes to markdown-generated element
  *
  * @param {string} el HTML element in string form
- * @param {string} className CSS classes to inject 
+ * @param {string} className CSS classes to inject
  * @param {string?} as output HTML tag, optional
  * @returns {string} HTML element with the provided class
  */
 export function injectClassToElement(
   el: string,
   className: string,
-  as?: string,
+  as?: string
 ): string {
   el = el.trim();
   const tag = el.match(/^<(\w+)>/) as RegExpMatchArray;

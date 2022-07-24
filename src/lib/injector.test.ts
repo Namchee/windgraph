@@ -1,6 +1,11 @@
 import { describe, it, expect } from 'vitest';
 
-import { injectClassToElement, injectDefaultClasses, injectFontLinks, injectTailwindConfig } from '@/lib/injector';
+import {
+  injectClassToElement,
+  injectDefaultClasses,
+  injectFontLinks,
+  injectTailwindConfig,
+} from '@/lib/injector';
 
 import type { OpenGraphRequest } from '@/lib/types';
 

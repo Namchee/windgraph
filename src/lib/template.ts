@@ -1,6 +1,11 @@
 import { parse } from 'markdown-wasm';
 
-import { injectClassToElement, injectDefaultClasses, injectFontLinks, injectTailwindConfig } from './injector';
+import {
+  injectClassToElement,
+  injectDefaultClasses,
+  injectFontLinks,
+  injectTailwindConfig,
+} from './injector';
 import { sanitize } from './sanitizer';
 import { isValidImage } from './utils';
 
@@ -25,9 +30,15 @@ export async function generateContent(
   const config = injectTailwindConfig(content);
   const scripts = config ? `<script>${config}</script>` : '';
 
-  const containerClass = injectDefaultClasses(content.containerClass || '', 'container');
+  const containerClass = injectDefaultClasses(
+    content.containerClass || '',
+    'container'
+  );
   const titleClass = injectDefaultClasses(content.titleClass || '', 'title');
-  const subtitleClass = injectDefaultClasses(content.subtitleClass || '', 'subtitle');
+  const subtitleClass = injectDefaultClasses(
+    content.subtitleClass || '',
+    'subtitle'
+  );
   const imageClass = injectDefaultClasses(content.imageClass || '', 'image');
   const footerClass = injectDefaultClasses(content.footerClass || '', 'footer');
 
