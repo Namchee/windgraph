@@ -15,10 +15,9 @@ describe('injectDefaultClasses', () => {
       expect(classes).toContain('h-screen');
       expect(classes).not.toContain('p-16');
       expect(classes).toContain('p-24');
-      expect(classes).toContain('flex');
-      expect(classes).toContain('flex-col');
-      expect(classes).toContain('justify-center');
-      expect(classes).toContain('items-center');
+      expect(classes).toContain('grid');
+      expect(classes).toContain('place-items-center');
+      expect(classes).toContain('grid-rows-3');
     });
 
     it('should inject all fallback classes', () => {
@@ -29,10 +28,9 @@ describe('injectDefaultClasses', () => {
       expect(classes).toContain('w-screen');
       expect(classes).toContain('h-screen');
       expect(classes).toContain('p-16');
-      expect(classes).toContain('flex');
-      expect(classes).toContain('flex-col');
-      expect(classes).toContain('justify-center');
-      expect(classes).toContain('items-center');
+      expect(classes).toContain('grid');
+      expect(classes).toContain('place-items-center');
+      expect(classes).toContain('grid-rows-3');
     });
 
     it('should not inject any classes', () => {
