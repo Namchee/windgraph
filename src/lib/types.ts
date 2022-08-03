@@ -23,3 +23,14 @@ export interface OpenGraphRequest {
   fontSerif?: string;
   fontMono?: string;
 }
+
+export interface TemplateMap {
+  preconnect: string;
+  fonts: string;
+  scripts: string;
+  container: string;
+  image: string;
+  title: string;
+  subtitle: string;
+  footer: string;
+}

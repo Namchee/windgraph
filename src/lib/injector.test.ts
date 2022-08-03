@@ -245,3 +245,5 @@ describe('injectClassToElement', () => {
     expect(got).toBe('<h1 class="text-dark">Hello World!</h1>');
   });
 });
+
+describe('buildTemplate', () => {});

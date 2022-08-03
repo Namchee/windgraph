@@ -1,4 +1,4 @@
-import type { OpenGraphRequest } from './types';
+import type { OpenGraphRequest, TemplateMap } from './types';
 
 interface UtilMap {
   target: RegExp[];
@@ -184,4 +184,18 @@ export function injectTailwindConfig(content: OpenGraphRequest): string {
       }
     }
   }`;
+}
+
+/**
+ * Build template based on base template and user-defined values
+ *
+ * @param {string} base base template
+ * @param {TemplateMap} value template replacement
+ * @returns {string} template replaced with real values
+ */
+export function buildTemplate(base: string, value: TemplateMap): string {
+  return base.replace(
+    /{([^{}]+)}/g,
+    (_, key: keyof TemplateMap) => value[key] || ''
+  );
 }
