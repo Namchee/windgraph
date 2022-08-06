@@ -25,7 +25,6 @@ export interface OpenGraphRequest {
 }
 
 export interface TemplateMap {
-  preconnect: string;
   fonts: string;
   scripts: string;
   container: string;

@@ -208,7 +208,10 @@ export function injectTailwindConfig(content: OpenGraphRequest): string {
  * @param {TemplateMap} value template replacement
  * @returns {string} template replaced with real values
  */
-export function buildTemplate(base: string, value: TemplateMap): string {
+export function buildTemplate(
+  base: string,
+  value: Partial<TemplateMap>
+): string {
   return base.replace(
     /{([^{}]+)}/g,
     (_, key: keyof TemplateMap) => value[key] || ''

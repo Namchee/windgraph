@@ -1,13 +1,16 @@
 import { describe, it, expect } from 'vitest';
 
 import {
+  buildTemplate,
   injectClassToElement,
   injectDefaultClasses,
   injectFonts,
   injectTailwindConfig,
 } from '@/lib/injector';
 
-import type { OpenGraphRequest } from '@/lib/types';
+import { HERO_TEMPLATE } from '@/lib/template/hero';
+
+import type { OpenGraphRequest, TemplateMap } from '@/lib/types';
 
 describe('injectDefaultClasses', () => {
   describe('injectContainerClass', () => {
@@ -248,5 +251,82 @@ describe('injectClassToElement', () => {
     const got = injectClassToElement(el, className, 'h1');
 
     expect(got).toBe('<h1 class="text-dark">Hello World!</h1>');
+  });
+});
+
+describe('buildTemplate', () => {
+  it('should replace all string templates with correct values', () => {
+    const base = HERO_TEMPLATE;
+    const map: TemplateMap = {
+      fonts: '',
+      scripts: '<script></script>',
+      container: 'flex justify-between',
+      image: '<img src="test.png />',
+      title: '<h1 class="text-2xl">Test</h1>',
+      subtitle: '<h3 class="text-sm">Ting</h3>',
+      footer: '<p>a</p>',
+    };
+
+    const result = buildTemplate(base, map);
+
+    expect(result).toBe(`<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script></script>
+  </head>
+
+  <body>
+    <div class="flex justify-between">
+      <div class="row-start-2 flex flex-col items-center">
+        <img src="test.png />
+        <h1 class="text-2xl">Test</h1>
+        <h3 class="text-sm">Ting</h3>
+      </div>
+
+      <div class="self-end row-start-3">
+        <p>a</p>
+      </div>
+    </div>
+  </body>
+</html>`);
+  });
+
+  it('should replace all keys that are not present with an empty string', () => {
+    const base = HERO_TEMPLATE;
+    const map: Partial<TemplateMap> = {
+      container: 'flex justify-between',
+      title: '<h1 class="text-2xl">Test</h1>',
+    };
+
+    const result = buildTemplate(base, map);
+
+    expect(result).toBe(`<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+  </head>
+
+  <body>
+    <div class="flex justify-between">
+      <div class="row-start-2 flex flex-col items-center">
+        
+        <h1 class="text-2xl">Test</h1>
+        
+      </div>
+
+      <div class="self-end row-start-3">
+        
+      </div>
+    </div>
+  </body>
+</html>`);
   });
 });
