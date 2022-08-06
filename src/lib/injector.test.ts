@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import {
   injectClassToElement,
   injectDefaultClasses,
-  injectFontLinks,
+  injectFonts,
   injectTailwindConfig,
 } from '@/lib/injector';
 
@@ -179,9 +179,15 @@ describe('injectFonts', () => {
       fontMono: 'Hack',
     };
 
-    const links = injectFontLinks(content);
+    const links = injectFonts(content);
 
-    expect(links.length).toBe(2);
+    expect(links.length).toBe(4);
+    expect(links).toContain(
+      '<link rel="preconnect" href="https://fonts.googleapis.com">'
+    );
+    expect(links).toContain(
+      '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+    );
     expect(links).toContain(
       `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">`
     );
@@ -195,7 +201,7 @@ describe('injectFonts', () => {
       title: 'foo',
     };
 
-    const links = injectFontLinks(content);
+    const links = injectFonts(content);
 
     expect(links.length).toBe(0);
   });
@@ -245,5 +251,3 @@ describe('injectClassToElement', () => {
     expect(got).toBe('<h1 class="text-dark">Hello World!</h1>');
   });
 });
-
-describe('buildTemplate', () => {});

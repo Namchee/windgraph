@@ -3,7 +3,7 @@ import { parse } from 'markdown-wasm';
 import {
   injectClassToElement,
   injectDefaultClasses,
-  injectFontLinks,
+  injectFonts,
   injectTailwindConfig,
 } from './injector';
 import { sanitize } from './sanitizer';
@@ -20,13 +20,7 @@ import type { OpenGraphRequest } from './types';
 export async function generateContent(
   content: OpenGraphRequest
 ): Promise<string> {
-  const fonts = injectFontLinks(content);
-  const preconnect = fonts.length
-    ? [
-        '<link rel="preconnect" href="https://fonts.googleapis.com">',
-        '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
-      ]
-    : [];
+  const fonts = injectFonts(content);
   const config = injectTailwindConfig(content);
   const scripts = config ? `<script>${config}</script>` : '';
 
@@ -74,7 +68,6 @@ export async function generateContent(
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      ${preconnect.join('\n')}
       ${fonts.join('\n')}
       <script src="https://cdn.tailwindcss.com"></script>
       ${scripts}

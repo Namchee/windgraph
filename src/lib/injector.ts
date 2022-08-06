@@ -148,13 +148,28 @@ export function injectClassToElement(
  * @param {OpenGraphRequest} content user input
  * @returns {string[]} list of font links
  */
-export function injectFontLinks(content: OpenGraphRequest): string[] {
-  return Object.entries(content)
-    .filter(([key, value]) => key.startsWith('font') && Boolean(value))
-    .map(
+export function injectFonts(content: OpenGraphRequest): string[] {
+  const links: string[] = [];
+
+  const fonts = Object.entries(content).filter(
+    ([key, value]) => key.startsWith('font') && Boolean(value)
+  );
+
+  if (fonts.length) {
+    links.push(
+      '<link rel="preconnect" href="https://fonts.googleapis.com">',
+      '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+    );
+  }
+
+  links.push(
+    ...fonts.map(
       font =>
         `<link href="https://fonts.googleapis.com/css2?family=${font[1]}:wght@400;700&display=swap" rel="stylesheet">`
-    );
+    )
+  );
+
+  return links;
 }
 
 /**
