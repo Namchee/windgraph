@@ -178,7 +178,7 @@ export function injectFonts(content: OpenGraphRequest): string {
  * @param {OpenGraphRequest} content user input
  * @returns {string} Tailwind config as a string
  */
-export function injectTailwindConfig(content: OpenGraphRequest): string {
+export function injectScripts(content: OpenGraphRequest): string {
   const fonts = Object.entries(content).filter(
     ([key, value]) => key.startsWith('font') && Boolean(value)
   );
@@ -187,18 +187,20 @@ export function injectTailwindConfig(content: OpenGraphRequest): string {
     return '';
   }
 
-  return `tailwind.config = {
-    theme: {
-      fontFamily: {
-        ${fonts
-          .map(
-            ([key, value]) =>
-              `${key.replace('font', '').toLowerCase()}: ['${value}']`
-          )
-          .join(',\n')}
-      }
+  return `<script>
+tailwind.config = {
+  theme: {
+    fontFamily: {
+      ${fonts
+        .map(
+          ([key, value]) =>
+            `${key.replace('font', '').toLowerCase()}: ['${value}']`
+        )
+        .join(',\n')}
     }
-  }`;
+  }
+}
+</script>`;
 }
 
 /**

@@ -5,7 +5,7 @@ import {
   injectClassToElement,
   injectDefaultClasses,
   injectFonts,
-  injectTailwindConfig,
+  injectScripts,
 } from '@/lib/injector';
 
 import { HERO_TEMPLATE } from '@/lib/template/hero';
@@ -209,12 +209,12 @@ describe('injectFonts', () => {
   });
 });
 
-describe('injectTailwindConfig', () => {
+describe('injectScripts', () => {
   it('should return empty string', () => {
     const content: OpenGraphRequest = {
       title: 'foo',
     };
-    const output = injectTailwindConfig(content);
+    const output = injectScripts(content);
 
     expect(output).toBe('');
   });
@@ -226,7 +226,7 @@ describe('injectTailwindConfig', () => {
       fontMono: 'Hack',
       fontSerif: 'Merriweather',
     };
-    const output = injectTailwindConfig(content);
+    const output = injectScripts(content);
 
     expect(output).toMatch(/sans: \['Open Sans'\]/);
     expect(output).toMatch(/mono: \['Hack'\]/);

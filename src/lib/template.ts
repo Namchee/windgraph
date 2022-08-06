@@ -4,7 +4,7 @@ import {
   injectClassToElement,
   injectDefaultClasses,
   injectFonts,
-  injectTailwindConfig,
+  injectScripts,
 } from './injector';
 import { sanitize } from './sanitizer';
 import { isValidImage } from './utils';
@@ -21,8 +21,7 @@ export async function generateContent(
   content: OpenGraphRequest
 ): Promise<string> {
   const fonts = injectFonts(content);
-  const config = injectTailwindConfig(content);
-  const scripts = config ? `<script>${config}</script>` : '';
+  const scripts = injectScripts(content);
 
   const containerClass = injectDefaultClasses(
     content.containerClass || '',
