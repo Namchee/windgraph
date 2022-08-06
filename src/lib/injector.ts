@@ -146,9 +146,9 @@ export function injectClassToElement(
  * Dynamically generated Google Fonts links based on user input
  *
  * @param {OpenGraphRequest} content user input
- * @returns {string[]} list of font links
+ * @returns {string} font links
  */
-export function injectFonts(content: OpenGraphRequest): string[] {
+export function injectFonts(content: OpenGraphRequest): string {
   const links: string[] = [];
 
   const fonts = Object.entries(content).filter(
@@ -169,7 +169,7 @@ export function injectFonts(content: OpenGraphRequest): string[] {
     )
   );
 
-  return links;
+  return links.join('\n');
 }
 
 /**

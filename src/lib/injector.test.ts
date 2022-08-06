@@ -181,18 +181,17 @@ describe('injectFonts', () => {
 
     const links = injectFonts(content);
 
-    expect(links.length).toBe(4);
-    expect(links).toContain(
-      '<link rel="preconnect" href="https://fonts.googleapis.com">'
+    expect(links).toMatch(
+      /<link rel="preconnect" href="https:\/\/fonts.googleapis.com">/
     );
-    expect(links).toContain(
-      '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+    expect(links).toMatch(
+      /<link rel="preconnect" href="https:\/\/fonts.gstatic.com" crossorigin>/
     );
-    expect(links).toContain(
-      `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">`
+    expect(links).toMatch(
+      /<link href="https:\/\/fonts.googleapis.com\/css2\?family=Inter:wght@400;700&display=swap" rel="stylesheet">/
     );
-    expect(links).toContain(
-      `<link href="https://fonts.googleapis.com/css2?family=Hack:wght@400;700&display=swap" rel="stylesheet">`
+    expect(links).toMatch(
+      /<link href="https:\/\/fonts.googleapis.com\/css2\?family=Hack:wght@400;700&display=swap" rel="stylesheet">/
     );
   });
 
