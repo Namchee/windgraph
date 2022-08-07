@@ -22,6 +22,7 @@ export interface OpenGraphRequest {
   fontSans?: string;
   fontSerif?: string;
   fontMono?: string;
+  template?: string;
 }
 
 export interface TemplateMap {
