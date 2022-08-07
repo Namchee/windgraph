@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
-import { generateContent } from '@/lib/template';
+import { generateContent } from '@/lib/generator';
 
 import type { OpenGraphRequest } from '@/lib/types';
 import { imgMockServer } from '@/mocks/server';

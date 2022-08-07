@@ -11,7 +11,8 @@ import { sanitize } from './sanitizer';
 import { isValidImage } from './utils';
 
 import type { OpenGraphRequest } from './types';
-import { TEMPLATES } from './template';
+
+import { getTemplate, TEMPLATES } from './template/template';
 
 /**
  * Generate content based on provided user input
@@ -25,7 +26,7 @@ export async function generateContent(
   const fonts = injectFonts(content);
   const scripts = injectScripts(content);
 
-  const template = TEMPLATES[content.template || 'blank'];
+  const template: string = getTemplate(content.template);
 
   const containerClass = injectDefaultClasses(
     content.containerClass || '',
