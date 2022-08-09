@@ -11,8 +11,8 @@ export const IMAGE_RIGHT = `<!DOCTYPE html>
   <body class="{container}">
     <div class="flex flex-col justify-between">
       <div>
-        {title}
         {subtitle}
+        {title}
       </div>
 
       {footer}

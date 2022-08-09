@@ -15,8 +15,8 @@ export const IMAGE_LEFT = `<!DOCTYPE html>
 
     <div class="flex flex-col justify-between">
       <div>
-        {title}
         {subtitle}
+        {title}
       </div>
 
       {footer}
