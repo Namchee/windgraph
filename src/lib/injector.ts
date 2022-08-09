@@ -21,26 +21,8 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
       target: [/\bp-.+\b/],
       default: 'p-16',
     },
-    {
-      target: [
-        /\bblock\b/,
-        /\binline-block\b/,
-        /\binline\b/,
-        /\bflow-root\b/,
-        /\bhidden\b/,
-        /\bflex\b/,
-        /\binline-flex\b/,
-        /\bgrid\b/,
-        /\binline-grid\b/,
-      ],
-      default: 'grid grid-rows-3 place-items-center',
-    },
   ],
   title: [
-    {
-      target: [/\btext-(left|center|right|justify)\b/],
-      default: 'text-center',
-    },
     {
       target: [/\bleading-.+\b/],
       default: 'leading-relaxed',
@@ -54,10 +36,6 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
   ],
   subtitle: [
     {
-      target: [/\btext-(left|center|right|justify)\b/],
-      default: 'text-center',
-    },
-    {
       target: [
         /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|px|rem|em|ch|vh|vw|ex)\b/,
       ],
@@ -65,10 +43,6 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
     },
   ],
   footer: [
-    {
-      target: [/\btext-(left|center|right|justify)\b/],
-      default: 'text-center',
-    },
     {
       target: [
         /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|px|rem|em|ch|vh|vw|ex)\b/,

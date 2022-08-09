@@ -1,5 +1,10 @@
+import { OpenGraphRequest } from '../types';
 import { BLANK_TEMPLATE } from './blank';
 import { HERO_TEMPLATE } from './hero';
+
+export abstract class Template {
+  public constructor(protected readonly req: OpenGraphRequest) {}
+}
 
 const TEMPLATES: Record<string, string> = {
   hero: HERO_TEMPLATE,

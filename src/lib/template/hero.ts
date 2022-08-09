@@ -8,14 +8,14 @@ export const HERO_TEMPLATE = `<!DOCTYPE html>
     {scripts}
   </head>
 
-  <body class="{container}">
-    <div class="row-start-2 flex flex-col items-center">
+  <body class="grid grid-rows-3 place-items-center {container}">
+    <div class="text-center row-start-2 flex flex-col items-center">
       {image}
       {title}
       {subtitle}
     </div>
 
-    <div class="self-end row-start-3">
+    <div class="self-end row-start-3 text-center">
       {footer}
     </div>
   </body>
