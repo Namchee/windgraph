@@ -1,14 +1,13 @@
-import { OpenGraphRequest } from '../types';
 import { BLANK_TEMPLATE } from './blank';
 import { HERO_TEMPLATE } from './hero';
-
-export abstract class Template {
-  public constructor(protected readonly req: OpenGraphRequest) {}
-}
+import { IMAGE_LEFT } from './image-left';
+import { IMAGE_RIGHT } from './image-right';
 
 const TEMPLATES: Record<string, string> = {
-  hero: HERO_TEMPLATE,
-  blank: BLANK_TEMPLATE,
+  'hero': HERO_TEMPLATE,
+  'blank': BLANK_TEMPLATE,
+  'image-left': IMAGE_LEFT,
+  'image-right': IMAGE_RIGHT,
 };
 
 /**

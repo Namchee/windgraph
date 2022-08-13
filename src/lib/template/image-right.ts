@@ -8,7 +8,7 @@ export const IMAGE_RIGHT = `<!DOCTYPE html>
     {scripts}
   </head>
 
-  <body class="grid grid-cols-2 {container}">
+  <body class="grid grid-cols-2 gap-8 {container}">
     <div class="flex flex-col justify-between">
       <div>
         {subtitle}
