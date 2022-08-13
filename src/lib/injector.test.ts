@@ -137,120 +137,84 @@ describe('injectDefaultClasses', () => {
     });
   });
 
-  describe('injectImageClass', () => {
-    it('should inject some fallback classes', () => {
-      const input = 'w-xl';
-      const output = injectDefaultClasses(input, 'image');
+  describe('injectFonts', () => {
+    it('should generate sans and mono variants', () => {
+      const content: OpenGraphRequest = {
+        title: 'foo',
+        fontSans: 'Inter',
+        fontMono: 'Hack',
+      };
 
-      const classes = output.split(' ');
+      const links = injectFonts(content);
 
-      expect(classes).toContain('w-xl');
-      expect(classes).not.toContain('w-32');
-      expect(classes).toContain('h-32');
-      expect(classes).toContain('mb-4');
+      expect(links).toMatch(
+        /<link rel="preconnect" href="https:\/\/fonts.googleapis.com">/
+      );
+      expect(links).toMatch(
+        /<link rel="preconnect" href="https:\/\/fonts.gstatic.com" crossorigin>/
+      );
+      expect(links).toMatch(
+        /<link href="https:\/\/fonts.googleapis.com\/css2\?family=Inter:wght@400;700&display=swap" rel="stylesheet">/
+      );
+      expect(links).toMatch(
+        /<link href="https:\/\/fonts.googleapis.com\/css2\?family=Hack:wght@400;700&display=swap" rel="stylesheet">/
+      );
     });
 
-    it('should inject all fallback classes', () => {
-      const input = '';
-      const output = injectDefaultClasses(input, 'image');
+    it('should return empty array', () => {
+      const content: OpenGraphRequest = {
+        title: 'foo',
+      };
 
-      const classes = output.split(' ');
+      const links = injectFonts(content);
 
-      expect(classes).toContain('w-32');
-      expect(classes).toContain('h-32');
-      expect(classes).toContain('mb-4');
-    });
-
-    it('should not do anything', () => {
-      const input = 'max-w-lg w-56 h-24 mb-12';
-      const output = injectDefaultClasses(input, 'image');
-
-      const classes = output.split(' ');
-
-      expect(classes).toContain('w-56');
-      expect(classes).toContain('h-24');
-      expect(classes).toContain('mb-12');
+      expect(links.length).toBe(0);
     });
   });
-});
 
-describe('injectFonts', () => {
-  it('should generate sans and mono variants', () => {
-    const content: OpenGraphRequest = {
-      title: 'foo',
-      fontSans: 'Inter',
-      fontMono: 'Hack',
-    };
+  describe('injectScripts', () => {
+    it('should return empty string', () => {
+      const content: OpenGraphRequest = {
+        title: 'foo',
+      };
+      const output = injectScripts(content);
 
-    const links = injectFonts(content);
+      expect(output).toBe('');
+    });
 
-    expect(links).toMatch(
-      /<link rel="preconnect" href="https:\/\/fonts.googleapis.com">/
-    );
-    expect(links).toMatch(
-      /<link rel="preconnect" href="https:\/\/fonts.gstatic.com" crossorigin>/
-    );
-    expect(links).toMatch(
-      /<link href="https:\/\/fonts.googleapis.com\/css2\?family=Inter:wght@400;700&display=swap" rel="stylesheet">/
-    );
-    expect(links).toMatch(
-      /<link href="https:\/\/fonts.googleapis.com\/css2\?family=Hack:wght@400;700&display=swap" rel="stylesheet">/
-    );
+    it('should inject custom fonts', () => {
+      const content: OpenGraphRequest = {
+        title: 'foo',
+        fontSans: 'Open Sans',
+        fontMono: 'Hack',
+        fontSerif: 'Merriweather',
+      };
+      const output = injectScripts(content);
+
+      expect(output).toMatch(/sans: \['Open Sans'\]/);
+      expect(output).toMatch(/mono: \['Hack'\]/);
+      expect(output).toMatch(/serif: \['Merriweather'\]/);
+    });
   });
 
-  it('should return empty array', () => {
-    const content: OpenGraphRequest = {
-      title: 'foo',
-    };
+  describe('injectClassToElement', () => {
+    it('should inject classes to element', () => {
+      const el = '<p>Hello World!</p>';
+      const className = 'text-dark';
 
-    const links = injectFonts(content);
+      const got = injectClassToElement(el, className);
 
-    expect(links.length).toBe(0);
-  });
-});
+      expect(got).toBe('<p class="text-dark">Hello World!</p>');
+    });
 
-describe('injectScripts', () => {
-  it('should return empty string', () => {
-    const content: OpenGraphRequest = {
-      title: 'foo',
-    };
-    const output = injectScripts(content);
+    it('should replace the default element', () => {
+      const el = '<p>Hello World!</p>';
+      const className = 'text-dark';
 
-    expect(output).toBe('');
-  });
+      const got = injectClassToElement(el, className, 'h1');
 
-  it('should inject custom fonts', () => {
-    const content: OpenGraphRequest = {
-      title: 'foo',
-      fontSans: 'Open Sans',
-      fontMono: 'Hack',
-      fontSerif: 'Merriweather',
-    };
-    const output = injectScripts(content);
-
-    expect(output).toMatch(/sans: \['Open Sans'\]/);
-    expect(output).toMatch(/mono: \['Hack'\]/);
-    expect(output).toMatch(/serif: \['Merriweather'\]/);
-  });
-});
-
-describe('injectClassToElement', () => {
-  it('should inject classes to element', () => {
-    const el = '<p>Hello World!</p>';
-    const className = 'text-dark';
-
-    const got = injectClassToElement(el, className);
-
-    expect(got).toBe('<p class="text-dark">Hello World!</p>');
-  });
-
-  it('should replace the default element', () => {
-    const el = '<p>Hello World!</p>';
-    const className = 'text-dark';
-
-    const got = injectClassToElement(el, className, 'h1');
-
-    expect(got).toBe('<h1 class="text-dark">Hello World!</h1>');
+      expect(got).toBe('<h1 class="text-dark">Hello World!</h1>');
+    });
   });
 });
 

@@ -10,9 +10,9 @@ import {
 import { sanitize } from './sanitizer';
 import { isValidImage } from './utils';
 
-import type { OpenGraphRequest } from './types';
+import type { OpenGraphRequest, TemplateMap } from './types';
 
-import { getTemplate, TEMPLATES } from './template/template';
+import { getTemplate } from './template/template';
 
 /**
  * Generate content based on provided user input
@@ -23,10 +23,11 @@ import { getTemplate, TEMPLATES } from './template/template';
 export async function generateContent(
   content: OpenGraphRequest
 ): Promise<string> {
-  const fonts = injectFonts(content);
-  const scripts = injectScripts(content);
-
-  const template: string = getTemplate(content.template);
+  const template: string = getTemplate(content.template || 'blank');
+  const templateMap: Partial<TemplateMap> = {
+    fonts: injectFonts(content),
+    scripts: injectScripts(content),
+  };
 
   const containerClass = injectDefaultClasses(
     content.containerClass || '',
@@ -37,7 +38,6 @@ export async function generateContent(
     content.subtitleClass || '',
     'subtitle'
   );
-  const imageClass = injectDefaultClasses(content.imageClass || '', 'image');
   const footerClass = injectDefaultClasses(content.footerClass || '', 'footer');
 
   const titleContent = content.title ? sanitize(content.title) : '';
@@ -61,11 +61,17 @@ export async function generateContent(
     ? injectClassToElement(parse(subtitleContent), subtitleClass, 'h3')
     : '';
   const img = contentImage
-    ? `<img src="${contentImage}" class="${imageClass}" />`
+    ? `<img src="${contentImage}" class="${content.imageClass || ''}" />`
     : '';
   const footer = footerContent
     ? injectClassToElement(parse(footerContent), footerClass, 'p')
     : '';
 
-  return buildTemplate(template);
+  templateMap.container = containerClass;
+  templateMap.title = title;
+  templateMap.subtitle = subtitle;
+  templateMap.image = img;
+  templateMap.footer = footer;
+
+  return buildTemplate(template, templateMap);
 }
