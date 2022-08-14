@@ -18,7 +18,7 @@ export const IMAGE_RIGHT = `<!DOCTYPE html>
       {footer}
     </div>
 
-    <div>
+    <div class="overflow-hidden ml-auto">
       {image}
     </div>
   </body>
