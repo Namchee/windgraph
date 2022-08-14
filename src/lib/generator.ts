@@ -61,7 +61,9 @@ export async function generateContent(
     ? injectClassToElement(parse(subtitleContent), subtitleClass, 'h3')
     : '';
   const img = contentImage
-    ? `<img src="${contentImage}" class="${content.imageClass || ''}" />`
+    ? `<img src="${contentImage}" class="${
+        content.imageClass || ''
+      } max-w-full max-h-full" />`
     : '';
   const footer = footerContent
     ? injectClassToElement(parse(footerContent), footerClass, 'p')

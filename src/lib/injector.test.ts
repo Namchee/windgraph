@@ -70,7 +70,6 @@ describe('injectDefaultClasses', () => {
       expect(classes).toContain('text-center');
       expect(classes).toContain('text-5xl');
       expect(classes).not.toContain('text-7xl');
-      expect(classes).toContain('leading-relaxed');
     });
 
     it('should inject all fallback classes', () => {
@@ -80,7 +79,6 @@ describe('injectDefaultClasses', () => {
       const classes = output.split(' ');
       expect(classes).toContain('text-center');
       expect(classes).toContain('text-7xl');
-      expect(classes).toContain('leading-relaxed');
     });
 
     it('should not inject any classes', () => {
@@ -97,7 +95,6 @@ describe('injectDefaultClasses', () => {
       expect(classes).toContain('tracking-wider');
 
       expect(classes).not.toContain('text-7xl');
-      expect(classes).not.toContain('leading-relaxed');
     });
   });
 

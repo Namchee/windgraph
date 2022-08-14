@@ -24,12 +24,8 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
   ],
   title: [
     {
-      target: [/\bleading-.+\b/],
-      default: 'leading-relaxed',
-    },
-    {
       target: [
-        /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|px|rem|em|ch|vh|vw|ex)\b/,
+        /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|screen|px|rem|em|ch|vh|vw|ex)\b/,
       ],
       default: 'text-7xl',
     },
@@ -37,7 +33,7 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
   subtitle: [
     {
       target: [
-        /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|px|rem|em|ch|vh|vw|ex)\b/,
+        /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|screen|px|rem|em|ch|vh|vw|ex)\b/,
       ],
       default: 'text-3xl',
     },
