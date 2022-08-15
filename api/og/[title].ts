@@ -38,7 +38,6 @@ async function og(
   };
 
   const html = await generateContent(ogRequest);
-  console.log(html);
   const options: PageOptions = generatePageOptions(
     query as Record<string, string>
   );
