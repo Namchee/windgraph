@@ -130,7 +130,7 @@ describe('injectDefaultClasses', () => {
 
       const imageClass = injectDefaultClasses(input, 'image');
 
-      expect(imageClass).toBe('object-scale-down');
+      expect(imageClass).toBe('object-contain');
     });
 
     it('should inject nothing', () => {
