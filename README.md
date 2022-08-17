@@ -29,7 +29,7 @@ Currently, there are 3 pre-made templates that can be used to generate Open Grap
 
 ### `image-right`
 
-![Image Right Template](./docs/image-Right.png)
+![Image Right Template](./docs/image-right.png)
 
 You must specify the template you want to use in form of querystring.
 
