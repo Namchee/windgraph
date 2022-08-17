@@ -72,29 +72,33 @@ Name | Description
 
 ## Showcase
 
-`https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b%20from-rose-400%20via-fuchsia-500%20to-indigo-500&subtitle=by%20Namchee&subtitle-class=text-white`
+`https://windgraph.vercel.app/api/og/**Hello**%20I'm%20Windgraph?template=hero&title-class=text-white%20mb-4&subtitle=by%20Namchee&subtitle-class=text-white&font-sans=Inter&container-class=bg-gradient-to-b%20from-fuchsia-500%20via-red-600%20to-orange-400`
 
-<img src="https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b%20from-rose-400%20via-fuchsia-500%20to-indigo-500&subtitle=by%20Namchee&subtitle-class=text-white" title="Sample Windgraph request" />
+<img src="https://windgraph.vercel.app/api/og/**Hello**%20I'm%20Windgraph?template=hero&title-class=text-white%20mb-4&subtitle=by%20Namchee&subtitle-class=text-white&font-sans=Inter&container-class=bg-gradient-to-b%20from-fuchsia-500%20via-red-600%20to-orange-400" title="Sample Windgraph request" />
 
-## Advanced Usage
-
-### Background Images 
+### With Background Image 
 
 You can use images or inline SVG as a background by utilizing Tailwind's [arbitrary values](https://v2.tailwindcss.com/docs/just-in-time-mode#arbitrary-value-support). For example: 
 
-`https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-[url('https://raw.githubusercontent.com/Namchee/windgraph/master/docs/background.jpg')]&subtitle=by%20Namchee&subtitle-class=text-white`
+`https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white%20mb-4&container-class=bg-cover%20bg-[url(%27https://raw.githubusercontent.com/Namchee/windgraph/master/docs/background.jpg%27)]&subtitle=by%20Namchee&subtitle-class=text-white&template=hero`
 
-<img src="https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-[url(%27https://raw.githubusercontent.com/Namchee/windgraph/master/docs/background.jpg%27)]%20bg-cover%20bg-fixed&subtitle=by%20Namchee&subtitle-class=text-white" />
+<img src="https://windgraph.vercel.app/api/og/**Hello**,%20I'm%20%60Windgraph%60?title-class=text-white%20mb-4&container-class=bg-cover%20bg-[url(%27https://raw.githubusercontent.com/Namchee/windgraph/master/docs/background.jpg%27)]&subtitle=by%20Namchee&subtitle-class=text-white&template=hero" title="Sample Arbitrary Value" />
 
-### Plaintext Title
+### Using Other Templates
+
+`https://windgraph.vercel.app/api/og/useEffect%20vs%20useLayoutEffect?subtitle=Check%20Out%20This%20Article&image=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1518050947974-4be8c7469f0c&template=image-right&subtitle-class=mb-4%20text-2xl%20text-gray-400&title-class=text-white%20text-6xl%20leading-tight%20font-medium&container-class=bg-gray-900&font-sans=Inter&footer=Made%20by%20Namchee.%20Inspired%20by%20Kent%20C.%20Dodds%20article&footer-class=text-xl%20text-gray-400&image-class=w-full%20h-full`
+
+<img src="https://windgraph.vercel.app/api/og/useEffect%20vs%20useLayoutEffect?subtitle=Check%20Out%20This%20Article&image=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1518050947974-4be8c7469f0c&template=image-right&subtitle-class=mb-4%20text-2xl%20text-gray-400&title-class=text-white%20text-6xl%20leading-tight%20font-medium&container-class=bg-gray-900&font-sans=Inter&footer=Made%20by%20Namchee.%20Inspired%20by%20Kent%20C.%20Dodds%20article&footer-class=text-xl%20text-gray-400&image-class=w-full%20h-full" title="Image Right Template" />
+
+## FAQ
+
+### Can I avoid the markdown feature?
 
 To avoid markdown processing, you can escape markdown characters by prepending it with `\` or `%5C`. For example:
 
-`https://windgraph.vercel.app/api/og/%5C*%5C*Hello%5C*%5C*,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b%20from-rose-400%20via-fuchsia-500%20to-indigo-500&subtitle=by%20Namchee&subtitle-class=text-white`
+`https://windgraph.vercel.app/api/og/%5C*%5C*Hello%5C*%5C*,%20I'm%20%60Windgraph%60?title-class=mb-4%20text-white&container-class=bg-gradient-to-b%20from-rose-400%20via-fuchsia-500%20to-indigo-500&subtitle=by%20Namchee&subtitle-class=text-white&template=hero`
 
-<img src="https://windgraph.vercel.app/api/og/%5C*%5C*Hello%5C*%5C*,%20I'm%20%60Windgraph%60?title-class=text-white&container-class=bg-gradient-to-b%20from-rose-400%20via-fuchsia-500%20to-indigo-500&subtitle=by%20Namchee&subtitle-class=text-white" />
-
-## Q & a
+<img src="https://windgraph.vercel.app/api/og/%5C*%5C*Hello%5C*%5C*,%20I'm%20%60Windgraph%60?title-class=mb-4%20text-white&container-class=bg-gradient-to-b%20from-rose-400%20via-fuchsia-500%20to-indigo-500&subtitle=by%20Namchee&subtitle-class=text-white&template=hero" />
 
 ### I'm using `image-left` / `image-right` template but `space-x-{value}` is not working properly!
 
@@ -118,5 +122,7 @@ This project is licensed under the [MIT License](./LICENSE)
 
 ## Credits
 
-- Background image in sample open graph is taken by <a href="https://unsplash.com/@jrkorpa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jr Korpa</a> on <a href="https://unsplash.com/s/photos/neon?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+- Background image in background image customization demonstration is taken by <a href="https://unsplash.com/@jrkorpa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jr Korpa</a> on <a href="https://unsplash.com/s/photos/neon?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+- Image in image right sample is taken by <a href="https://unsplash.com/@stephenfjohnson?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Stephen Johnson</a> on <a href="https://unsplash.com/s/photos/lights?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+  
   
