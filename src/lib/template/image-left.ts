@@ -8,7 +8,7 @@ export const IMAGE_LEFT = `<!DOCTYPE html>
     {scripts}
   </head>
 
-  <body class="grid grid-cols-2 gap-8 {container}">
+  <body class="grid grid-cols-2 {container}">
     <div class="overflow-hidden mr-auto">
       {image}
     </div>

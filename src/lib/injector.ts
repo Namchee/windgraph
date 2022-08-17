@@ -5,7 +5,7 @@ interface UtilMap {
   default: string;
 }
 
-type OpenGraphElement = 'container' | 'title' | 'subtitle' | 'footer';
+type OpenGraphElement = 'container' | 'title' | 'subtitle' | 'footer' | 'image';
 
 const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
   container: [
@@ -44,6 +44,12 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
         /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|px|rem|em|ch|vh|vw|ex)\b/,
       ],
       default: 'text-sm',
+    },
+  ],
+  image: [
+    {
+      target: [/\bobject-(contain|cover|fill|none|scale-down)\b/],
+      default: 'object-contain',
     },
   ],
 };
