@@ -1,4 +1,4 @@
-import { generateContent } from './../../src/lib/template';
+import { generateContent } from '../../src/lib/generator';
 import { captureScreen } from './../../src/lib/puppeteer';
 import { generatePageOptions } from './../../src/lib/utils';
 import { compressImage } from './../../src/lib/compress';
@@ -34,6 +34,7 @@ async function og(
     fontSans: query['font-sans'] as string,
     fontSerif: query['font-serif'] as string,
     fontMono: query['font-mono'] as string,
+    template: query.template as string,
   };
 
   const html = await generateContent(ogRequest);

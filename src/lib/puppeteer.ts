@@ -1,6 +1,7 @@
 import chromium from 'chrome-aws-lambda';
 
 import type { Page, ScreenshotOptions } from 'puppeteer-core';
+import { EMOJI } from './constant/font';
 import type { PageOptions } from './types';
 
 let page: Page;
@@ -37,6 +38,8 @@ async function getPage(): Promise<Page> {
         headless: false,
         ignoreHTTPSErrors: true,
       };
+
+  await chromium.font(EMOJI);
 
   const browser = await chromium.puppeteer.launch(options);
   const pages = await browser.pages();

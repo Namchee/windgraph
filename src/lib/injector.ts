@@ -1,11 +1,11 @@
-import type { OpenGraphRequest } from './types';
+import type { OpenGraphRequest, TemplateMap } from './types';
 
 interface UtilMap {
   target: RegExp[];
   default: string;
 }
 
-type OpenGraphElement = 'container' | 'title' | 'subtitle' | 'image' | 'footer';
+type OpenGraphElement = 'container' | 'title' | 'subtitle' | 'footer' | 'image';
 
 const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
   container: [
@@ -21,54 +21,24 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
       target: [/\bp-.+\b/],
       default: 'p-16',
     },
-    {
-      target: [
-        /\bblock\b/,
-        /\binline-block\b/,
-        /\binline\b/,
-        /\bflow-root\b/,
-        /\bhidden\b/,
-        /\bflex\b/,
-        /\binline-flex\b/,
-        /\bgrid\b/,
-        /\binline-grid\b/,
-      ],
-      default: 'grid grid-rows-3 place-items-center',
-    },
   ],
   title: [
     {
-      target: [/\btext-(left|center|right|justify)\b/],
-      default: 'text-center',
-    },
-    {
-      target: [/\bleading-.+\b/],
-      default: 'leading-relaxed',
-    },
-    {
       target: [
-        /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|px|rem|em|ch|vh|vw|ex)\b/,
+        /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|screen|px|rem|em|ch|vh|vw|ex)\b/,
       ],
       default: 'text-7xl',
     },
   ],
   subtitle: [
     {
-      target: [/\btext-(left|center|right|justify)\b/],
-      default: 'text-center',
-    },
-    {
       target: [
-        /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|px|rem|em|ch|vh|vw|ex)\b/,
+        /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|screen|px|rem|em|ch|vh|vw|ex)\b/,
       ],
       default: 'text-3xl',
     },
   ],
   footer: [
-    {
-      target: [/\btext-(left|center|right|justify)\b/],
-      default: 'text-center',
-    },
     {
       target: [
         /\btext-([\d.]+)?(xs|sm|base|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|px|rem|em|ch|vh|vw|ex)\b/,
@@ -78,16 +48,8 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
   ],
   image: [
     {
-      target: [/\bw-.+\b/],
-      default: 'w-32',
-    },
-    {
-      target: [/\bh-.+\b/],
-      default: 'h-32',
-    },
-    {
-      target: [/\bmb-.+\b/],
-      default: 'mb-4',
+      target: [/\bobject-(contain|cover|fill|none|scale-down)\b/],
+      default: 'object-contain',
     },
   ],
 };
@@ -146,15 +108,30 @@ export function injectClassToElement(
  * Dynamically generated Google Fonts links based on user input
  *
  * @param {OpenGraphRequest} content user input
- * @returns {string[]} list of font links
+ * @returns {string} font links
  */
-export function injectFontLinks(content: OpenGraphRequest): string[] {
-  return Object.entries(content)
-    .filter(([key, value]) => key.startsWith('font') && Boolean(value))
-    .map(
-      font =>
-        `<link href="https://fonts.googleapis.com/css2?family=${font[1]}:wght@400;700&display=swap" rel="stylesheet">`
+export function injectFonts(content: OpenGraphRequest): string {
+  const links: string[] = [];
+
+  const fonts = Object.entries(content).filter(
+    ([key, value]) => key.startsWith('font') && Boolean(value)
+  );
+
+  if (fonts.length) {
+    links.push(
+      '<link rel="preconnect" href="https://fonts.googleapis.com">',
+      '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
     );
+  }
+
+  links.push(
+    ...fonts.map(
+      font =>
+        `<link href="https://fonts.googleapis.com/css2?family=${font[1]}:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">`
+    )
+  );
+
+  return links.join('\n');
 }
 
 /**
@@ -163,7 +140,7 @@ export function injectFontLinks(content: OpenGraphRequest): string[] {
  * @param {OpenGraphRequest} content user input
  * @returns {string} Tailwind config as a string
  */
-export function injectTailwindConfig(content: OpenGraphRequest): string {
+export function injectScripts(content: OpenGraphRequest): string {
   const fonts = Object.entries(content).filter(
     ([key, value]) => key.startsWith('font') && Boolean(value)
   );
@@ -172,16 +149,35 @@ export function injectTailwindConfig(content: OpenGraphRequest): string {
     return '';
   }
 
-  return `tailwind.config = {
-    theme: {
-      fontFamily: {
-        ${fonts
-          .map(
-            ([key, value]) =>
-              `${key.replace('font', '').toLowerCase()}: ['${value}']`
-          )
-          .join(',\n')}
-      }
+  return `<script>
+tailwind.config = {
+  theme: {
+    fontFamily: {
+      ${fonts
+        .map(
+          ([key, value]) =>
+            `${key.replace('font', '').toLowerCase()}: ['${value}']`
+        )
+        .join(',\n')}
     }
-  }`;
+  }
+}
+</script>`;
+}
+
+/**
+ * Build template based on base template and user-defined values
+ *
+ * @param {string} base base template
+ * @param {TemplateMap} value template replacement
+ * @returns {string} template replaced with real values
+ */
+export function buildTemplate(
+  base: string,
+  value: Partial<TemplateMap>
+): string {
+  return base.replace(
+    /{([^{}]+)}/g,
+    (_, key: keyof TemplateMap) => value[key] || ''
+  );
 }

@@ -1,13 +1,16 @@
 import { describe, it, expect } from 'vitest';
 
 import {
+  buildTemplate,
   injectClassToElement,
   injectDefaultClasses,
-  injectFontLinks,
-  injectTailwindConfig,
+  injectFonts,
+  injectScripts,
 } from '@/lib/injector';
 
-import type { OpenGraphRequest } from '@/lib/types';
+import { HERO_TEMPLATE } from '@/lib/template/hero';
+
+import type { OpenGraphRequest, TemplateMap } from '@/lib/types';
 
 describe('injectDefaultClasses', () => {
   describe('injectContainerClass', () => {
@@ -20,9 +23,6 @@ describe('injectDefaultClasses', () => {
       expect(classes).toContain('h-screen');
       expect(classes).not.toContain('p-16');
       expect(classes).toContain('p-24');
-      expect(classes).toContain('grid');
-      expect(classes).toContain('place-items-center');
-      expect(classes).toContain('grid-rows-3');
     });
 
     it('should inject all fallback classes', () => {
@@ -33,9 +33,6 @@ describe('injectDefaultClasses', () => {
       expect(classes).toContain('w-screen');
       expect(classes).toContain('h-screen');
       expect(classes).toContain('p-16');
-      expect(classes).toContain('grid');
-      expect(classes).toContain('place-items-center');
-      expect(classes).toContain('grid-rows-3');
     });
 
     it('should not inject any classes', () => {
@@ -64,10 +61,8 @@ describe('injectDefaultClasses', () => {
 
       const classes = output.split(' ');
 
-      expect(classes).toContain('text-center');
       expect(classes).toContain('text-5xl');
       expect(classes).not.toContain('text-7xl');
-      expect(classes).toContain('leading-relaxed');
     });
 
     it('should inject all fallback classes', () => {
@@ -75,9 +70,7 @@ describe('injectDefaultClasses', () => {
       const output = injectDefaultClasses(input, 'title');
 
       const classes = output.split(' ');
-      expect(classes).toContain('text-center');
       expect(classes).toContain('text-7xl');
-      expect(classes).toContain('leading-relaxed');
     });
 
     it('should not inject any classes', () => {
@@ -94,7 +87,6 @@ describe('injectDefaultClasses', () => {
       expect(classes).toContain('tracking-wider');
 
       expect(classes).not.toContain('text-7xl');
-      expect(classes).not.toContain('leading-relaxed');
     });
   });
 
@@ -105,7 +97,6 @@ describe('injectDefaultClasses', () => {
 
       const classes = output.split(' ');
 
-      expect(classes).toContain('text-center');
       expect(classes).toContain('text-3xl');
       expect(classes).not.toContain('text-2xl');
     });
@@ -115,7 +106,6 @@ describe('injectDefaultClasses', () => {
       const output = injectDefaultClasses(input, 'subtitle');
 
       const classes = output.split(' ');
-      expect(classes).toContain('text-center');
       expect(classes).toContain('text-3xl');
     });
 
@@ -134,114 +124,174 @@ describe('injectDefaultClasses', () => {
     });
   });
 
-  describe('injectImageClass', () => {
-    it('should inject some fallback classes', () => {
-      const input = 'w-xl';
-      const output = injectDefaultClasses(input, 'image');
-
-      const classes = output.split(' ');
-
-      expect(classes).toContain('w-xl');
-      expect(classes).not.toContain('w-32');
-      expect(classes).toContain('h-32');
-      expect(classes).toContain('mb-4');
-    });
-
-    it('should inject all fallback classes', () => {
+  describe('injectImage', () => {
+    it('should inject default classes', () => {
       const input = '';
-      const output = injectDefaultClasses(input, 'image');
 
-      const classes = output.split(' ');
+      const imageClass = injectDefaultClasses(input, 'image');
 
-      expect(classes).toContain('w-32');
-      expect(classes).toContain('h-32');
-      expect(classes).toContain('mb-4');
+      expect(imageClass).toBe('object-contain');
     });
 
-    it('should not do anything', () => {
-      const input = 'max-w-lg w-56 h-24 mb-12';
-      const output = injectDefaultClasses(input, 'image');
+    it('should inject nothing', () => {
+      const input = 'object-fill';
 
-      const classes = output.split(' ');
+      const imageClass = injectDefaultClasses(input, 'image');
 
-      expect(classes).toContain('w-56');
-      expect(classes).toContain('h-24');
-      expect(classes).toContain('mb-12');
+      expect(imageClass).toBe('object-fill');
+    });
+  });
+
+  describe('injectFonts', () => {
+    it('should generate sans and mono variants', () => {
+      const content: OpenGraphRequest = {
+        title: 'foo',
+        fontSans: 'Inter',
+        fontMono: 'Hack',
+      };
+
+      const links = injectFonts(content);
+
+      expect(links).toMatch(
+        /<link rel="preconnect" href="https:\/\/fonts.googleapis.com">/
+      );
+      expect(links).toMatch(
+        /<link rel="preconnect" href="https:\/\/fonts.gstatic.com" crossorigin>/
+      );
+      expect(links).toMatch(
+        /<link href="https:\/\/fonts.googleapis.com\/css2\?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">/
+      );
+      expect(links).toMatch(
+        /<link href="https:\/\/fonts.googleapis.com\/css2\?family=Hack:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">/
+      );
+    });
+
+    it('should return an empty string', () => {
+      const content: OpenGraphRequest = {
+        title: 'foo',
+      };
+
+      const links = injectFonts(content);
+
+      expect(links.length).toBe(0);
+    });
+  });
+
+  describe('injectScripts', () => {
+    it('should return empty string', () => {
+      const content: OpenGraphRequest = {
+        title: 'foo',
+      };
+      const output = injectScripts(content);
+
+      expect(output).toBe('');
+    });
+
+    it('should inject custom fonts', () => {
+      const content: OpenGraphRequest = {
+        title: 'foo',
+        fontSans: 'Open Sans',
+        fontMono: 'Hack',
+        fontSerif: 'Merriweather',
+      };
+      const output = injectScripts(content);
+
+      expect(output).toMatch(/sans: \['Open Sans'\]/);
+      expect(output).toMatch(/mono: \['Hack'\]/);
+      expect(output).toMatch(/serif: \['Merriweather'\]/);
+    });
+  });
+
+  describe('injectClassToElement', () => {
+    it('should inject classes to element', () => {
+      const el = '<p>Hello World!</p>';
+      const className = 'text-dark';
+
+      const got = injectClassToElement(el, className);
+
+      expect(got).toBe('<p class="text-dark">Hello World!</p>');
+    });
+
+    it('should replace the default element', () => {
+      const el = '<p>Hello World!</p>';
+      const className = 'text-dark';
+
+      const got = injectClassToElement(el, className, 'h1');
+
+      expect(got).toBe('<h1 class="text-dark">Hello World!</h1>');
     });
   });
 });
 
-describe('injectFonts', () => {
-  it('should generate sans and mono variants', () => {
-    const content: OpenGraphRequest = {
-      title: 'foo',
-      fontSans: 'Inter',
-      fontMono: 'Hack',
+describe('buildTemplate', () => {
+  it('should replace all string templates with correct values', () => {
+    const base = HERO_TEMPLATE;
+    const map: TemplateMap = {
+      fonts: '',
+      scripts: '<script></script>',
+      container: 'bg-gray-400',
+      image: '<img src="test.png />',
+      title: '<h1 class="text-2xl">Test</h1>',
+      subtitle: '<h3 class="text-sm">Ting</h3>',
+      footer: '<p>a</p>',
     };
 
-    const links = injectFontLinks(content);
+    const result = buildTemplate(base, map);
 
-    expect(links.length).toBe(2);
-    expect(links).toContain(
-      `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">`
-    );
-    expect(links).toContain(
-      `<link href="https://fonts.googleapis.com/css2?family=Hack:wght@400;700&display=swap" rel="stylesheet">`
-    );
+    expect(result).toBe(`<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script></script>
+  </head>
+
+  <body class="grid grid-rows-3 place-items-center bg-gray-400">
+    <div class="row-start-2 flex flex-col items-center text-center">
+      <img src="test.png />
+      <h1 class="text-2xl">Test</h1>
+      <h3 class="text-sm">Ting</h3>
+    </div>
+
+    <div class="self-end row-start-3 text-center">
+      <p>a</p>
+    </div>
+  </body>
+</html>`);
   });
 
-  it('should return empty array', () => {
-    const content: OpenGraphRequest = {
-      title: 'foo',
+  it('should replace all keys that are not present with an empty string', () => {
+    const base = HERO_TEMPLATE;
+    const map: Partial<TemplateMap> = {
+      container: 'bg-gray-900',
+      title: '<h1 class="text-2xl">Test</h1>',
     };
 
-    const links = injectFontLinks(content);
+    const result = buildTemplate(base, map);
 
-    expect(links.length).toBe(0);
-  });
-});
+    expect(result).toBe(`<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+  </head>
 
-describe('injectTailwindConfig', () => {
-  it('should return empty string', () => {
-    const content: OpenGraphRequest = {
-      title: 'foo',
-    };
-    const output = injectTailwindConfig(content);
+  <body class="grid grid-rows-3 place-items-center bg-gray-900">
+    <div class="row-start-2 flex flex-col items-center text-center">
+      
+      <h1 class="text-2xl">Test</h1>
+      
+    </div>
 
-    expect(output).toBe('');
-  });
-
-  it('should inject custom fonts', () => {
-    const content: OpenGraphRequest = {
-      title: 'foo',
-      fontSans: 'Open Sans',
-      fontMono: 'Hack',
-      fontSerif: 'Merriweather',
-    };
-    const output = injectTailwindConfig(content);
-
-    expect(output).toMatch(/sans: \['Open Sans'\]/);
-    expect(output).toMatch(/mono: \['Hack'\]/);
-    expect(output).toMatch(/serif: \['Merriweather'\]/);
-  });
-});
-
-describe('injectClassToElement', () => {
-  it('should inject classes to element', () => {
-    const el = '<p>Hello World!</p>';
-    const className = 'text-dark';
-
-    const got = injectClassToElement(el, className);
-
-    expect(got).toBe('<p class="text-dark">Hello World!</p>');
-  });
-
-  it('should replace the default element', () => {
-    const el = '<p>Hello World!</p>';
-    const className = 'text-dark';
-
-    const got = injectClassToElement(el, className, 'h1');
-
-    expect(got).toBe('<h1 class="text-dark">Hello World!</h1>');
+    <div class="self-end row-start-3 text-center">
+      
+    </div>
+  </body>
+</html>`);
   });
 });
