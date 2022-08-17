@@ -23,9 +23,6 @@ describe('injectDefaultClasses', () => {
       expect(classes).toContain('h-screen');
       expect(classes).not.toContain('p-16');
       expect(classes).toContain('p-24');
-      expect(classes).toContain('grid');
-      expect(classes).toContain('place-items-center');
-      expect(classes).toContain('grid-rows-3');
     });
 
     it('should inject all fallback classes', () => {
@@ -36,9 +33,6 @@ describe('injectDefaultClasses', () => {
       expect(classes).toContain('w-screen');
       expect(classes).toContain('h-screen');
       expect(classes).toContain('p-16');
-      expect(classes).toContain('grid');
-      expect(classes).toContain('place-items-center');
-      expect(classes).toContain('grid-rows-3');
     });
 
     it('should not inject any classes', () => {
@@ -67,7 +61,6 @@ describe('injectDefaultClasses', () => {
 
       const classes = output.split(' ');
 
-      expect(classes).toContain('text-center');
       expect(classes).toContain('text-5xl');
       expect(classes).not.toContain('text-7xl');
     });
@@ -77,7 +70,6 @@ describe('injectDefaultClasses', () => {
       const output = injectDefaultClasses(input, 'title');
 
       const classes = output.split(' ');
-      expect(classes).toContain('text-center');
       expect(classes).toContain('text-7xl');
     });
 
@@ -105,7 +97,6 @@ describe('injectDefaultClasses', () => {
 
       const classes = output.split(' ');
 
-      expect(classes).toContain('text-center');
       expect(classes).toContain('text-3xl');
       expect(classes).not.toContain('text-2xl');
     });
@@ -115,7 +106,6 @@ describe('injectDefaultClasses', () => {
       const output = injectDefaultClasses(input, 'subtitle');
 
       const classes = output.split(' ');
-      expect(classes).toContain('text-center');
       expect(classes).toContain('text-3xl');
     });
 
@@ -131,6 +121,24 @@ describe('injectDefaultClasses', () => {
 
       expect(classes).not.toContain('text-2xl');
       expect(classes).not.toContain('text-center');
+    });
+  });
+
+  describe('injectImage', () => {
+    it('should inject default classes', () => {
+      const input = '';
+
+      const imageClass = injectDefaultClasses(input, 'image');
+
+      expect(imageClass).toBe('object-scale-down');
+    });
+
+    it('should inject nothing', () => {
+      const input = 'object-fill';
+
+      const imageClass = injectDefaultClasses(input, 'image');
+
+      expect(imageClass).toBe('object-fill');
     });
   });
 
@@ -158,7 +166,7 @@ describe('injectDefaultClasses', () => {
       );
     });
 
-    it('should return empty array', () => {
+    it('should return an empty string', () => {
       const content: OpenGraphRequest = {
         title: 'foo',
       };
@@ -221,7 +229,7 @@ describe('buildTemplate', () => {
     const map: TemplateMap = {
       fonts: '',
       scripts: '<script></script>',
-      container: 'flex justify-between',
+      container: 'bg-gray-400',
       image: '<img src="test.png />',
       title: '<h1 class="text-2xl">Test</h1>',
       subtitle: '<h3 class="text-sm">Ting</h3>',
@@ -240,17 +248,15 @@ describe('buildTemplate', () => {
     <script></script>
   </head>
 
-  <body>
-    <div class="flex justify-between">
-      <div class="row-start-2 flex flex-col items-center">
-        <img src="test.png />
-        <h1 class="text-2xl">Test</h1>
-        <h3 class="text-sm">Ting</h3>
-      </div>
+  <body class="grid grid-rows-3 place-items-center bg-gray-400">
+    <div class="row-start-2 flex flex-col items-center text-center">
+      <img src="test.png />
+      <h1 class="text-2xl">Test</h1>
+      <h3 class="text-sm">Ting</h3>
+    </div>
 
-      <div class="self-end row-start-3">
-        <p>a</p>
-      </div>
+    <div class="self-end row-start-3 text-center">
+      <p>a</p>
     </div>
   </body>
 </html>`);
@@ -259,7 +265,7 @@ describe('buildTemplate', () => {
   it('should replace all keys that are not present with an empty string', () => {
     const base = HERO_TEMPLATE;
     const map: Partial<TemplateMap> = {
-      container: 'flex justify-between',
+      container: 'bg-gray-900',
       title: '<h1 class="text-2xl">Test</h1>',
     };
 
@@ -275,17 +281,15 @@ describe('buildTemplate', () => {
     
   </head>
 
-  <body>
-    <div class="flex justify-between">
-      <div class="row-start-2 flex flex-col items-center">
-        
-        <h1 class="text-2xl">Test</h1>
-        
-      </div>
+  <body class="grid grid-rows-3 place-items-center bg-gray-900">
+    <div class="row-start-2 flex flex-col items-center text-center">
+      
+      <h1 class="text-2xl">Test</h1>
+      
+    </div>
 
-      <div class="self-end row-start-3">
-        
-      </div>
+    <div class="self-end row-start-3 text-center">
+      
     </div>
   </body>
 </html>`);

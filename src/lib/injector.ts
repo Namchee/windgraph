@@ -49,7 +49,7 @@ const utilsMap: Record<OpenGraphElement, UtilMap[]> = {
   image: [
     {
       target: [/\bobject-(contain|cover|fill|none|scale-down)\b/],
-      default: 'object-contain',
+      default: 'object-scale-down',
     },
   ],
 };

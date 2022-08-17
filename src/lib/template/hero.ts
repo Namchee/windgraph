@@ -9,7 +9,7 @@ export const HERO_TEMPLATE = `<!DOCTYPE html>
   </head>
 
   <body class="grid grid-rows-3 place-items-center {container}">
-    <div class="text-center row-start-2 flex flex-col items-center">
+    <div class="row-start-2 flex flex-col items-center text-center">
       {image}
       {title}
       {subtitle}

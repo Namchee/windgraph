@@ -39,6 +39,7 @@ export async function generateContent(
     'subtitle'
   );
   const footerClass = injectDefaultClasses(content.footerClass || '', 'footer');
+  const imageClass = injectDefaultClasses(content.imageClass || '', 'image');
 
   const titleContent = content.title ? sanitize(content.title) : '';
   const subtitleContent = content.subtitle ? sanitize(content.subtitle) : '';
@@ -61,7 +62,7 @@ export async function generateContent(
     ? injectClassToElement(parse(subtitleContent), subtitleClass, 'h3')
     : '';
   const img = contentImage
-    ? `<img src="${contentImage}" class="${content.imageClass || ''}" />`
+    ? `<img src="${contentImage}" class="${imageClass}" />`
     : '';
   const footer = footerContent
     ? injectClassToElement(parse(footerContent), footerClass, 'p')
