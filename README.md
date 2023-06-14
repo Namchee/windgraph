@@ -2,6 +2,8 @@
   <img src="./docs/banner.jpeg" title="Windgraph" alt="Windgraph" />
 </p>
 
+> This project is now deprecated. If you want similar solution, please use [@vercel/og](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation) library instead as it's faster and more mature. In the future, the service will be terminated indefinitely.
+
 Windgraph is a service that lets you generate a dynamic, Tailwind-powered Open Graph images that you can use either for SEO or just for social images.
 
 Inspired by [Vercel's original og-image](https://github.com/vercel/og-image).
